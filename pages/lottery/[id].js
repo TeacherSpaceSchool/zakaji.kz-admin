@@ -21,6 +21,8 @@ import TextLottery from '../../components/dialog/TextLottery'
 import WinnerListLottery from '../../components/dialog/WinnerListLottery'
 import Confetti from 'react-confetti'
 import Lightbox from 'react-awesome-lightbox';
+const photoReportsIndex = 0
+const prizesIndex = 0
 
 
 const LotteryEdit = React.memo((props) => {
@@ -33,14 +35,12 @@ const LotteryEdit = React.memo((props) => {
     const { showAppBar } = props.appActions;
     let [countdownData, setCountdownData] = useState({hours: 0, days: 0});
     let [tickets, setTickets] = useState([]);
-    const [photoReportsIndex, setPhotoReportsIndex] = useState(0);
     const [photoReportsOpen, setPhotoReportsOpen] = useState(false);
     const [photoReportsImage, setPhotoReportsImage] = useState([]);
-    const [photoReportsText, setPhotoReportsText] = useState([]);
-    const [prizesIndex, setPrizesIndex] = useState(0);
+    const [photoReportImage, setPhotoReportImage] = useState({});
     const [prizesOpen, setPrizesOpen] = useState(false);
     const [prizesImage, setPrizesImage] = useState([]);
-    const [prizesName, setPrizesName] = useState([]);
+    const [prizeImage, setPrizeImage] = useState({});
     const [confetti, setConfetti] = useState(false);
     useEffect(()=>{
         setCountdownData(countdown(data.lottery.date))
@@ -53,20 +53,36 @@ const LotteryEdit = React.memo((props) => {
             setTickets([...tickets])
         }
         if(data.lottery.prizes.length) {
-            for (let i = 0; i < data.lottery.prizes.length; i++) {
-                prizesImage.push(data.lottery.prizes[i].image)
-                prizesName.push(`${data.lottery.prizes[i].name}: ${data.lottery.prizes[i].count} шт`)
-                setPrizesImage([...prizesImage])
-                setPrizesName([...prizesName])
+            if(data.lottery.prizes.length===1) {
+                setPrizeImage({
+                    url: data.lottery.prizes[0].image,
+                    title: `${data.lottery.prizes[0].name}: ${data.lottery.prizes[0].count} шт`
+                })
             }
+            else
+                for (let i = 0; i < data.lottery.prizes.length; i++) {
+                    prizesImage.push({
+                        url: data.lottery.prizes[i].image,
+                        title: `${data.lottery.prizes[i].name}: ${data.lottery.prizes[i].count} шт`
+                    })
+                    setPrizesImage([...prizesImage])
+                }
         }
         if(data.lottery.photoReports.length) {
-            for (let i = 0; i < data.lottery.photoReports.length; i++) {
-                photoReportsImage.push(data.lottery.photoReports[i].image)
-                photoReportsText.push(data.lottery.photoReports[i].text)
-                setPhotoReportsImage([...photoReportsImage])
-                setPhotoReportsText([...photoReportsText])
+            if(data.lottery.photoReports.length===1) {
+                setPhotoReportImage({
+                    url: data.lottery.photoReports[0].image,
+                    title: data.lottery.photoReports[0].text
+                })
             }
+            else
+                for (let i = 0; i < data.lottery.photoReports.length; i++) {
+                    photoReportsImage.push({
+                        url: data.lottery.photoReports[i].image,
+                        title: data.lottery.photoReports[i].text
+                    })
+                    setPhotoReportsImage([...photoReportsImage])
+                }
         }
         setTimeout(async()=>{
             setConfetti(true)
@@ -176,17 +192,19 @@ const LotteryEdit = React.memo((props) => {
                                     null
                             }
                             {
-                                photoReportsImage.length?
+                                photoReportsImage.length||photoReportImage.url?
                                     <>
                                     <div style={{background: 'url(https://klike.net/uploads/posts/2018-07/1531820435_2.jpg) center center no-repeat'}} className='buttonPrize' onClick={()=>{
                                         setPhotoReportsOpen(true)
                                         showAppBar(false)
                                     }}>
-                                        <span>{`Фотоотчет: ${photoReportsImage.length}`}</span>
+                                        <span>{`Фотоотчет: ${photoReportsImage.length?photoReportsImage.length:1}`}</span>
                                     </div>
                                     {
                                         photoReportsOpen?
                                             <Lightbox
+                                                image={photoReportImage.url}
+                                                title={photoReportImage.title}
                                                 images={photoReportsImage}
                                                 startIndex={photoReportsIndex}
                                                 onClose={() => {showAppBar(true); setPhotoReportsOpen(false)}}
@@ -200,25 +218,25 @@ const LotteryEdit = React.memo((props) => {
                                     null
                             }
                             {
-                                prizesImage.length?
+                                prizesImage.length||prizeImage.url?
                                     <>
                                     <div style={{background: 'url(https://ak.picdn.net/shutterstock/videos/610861/thumb/1.jpg) center center no-repeat'}} className='buttonPrize' onClick={()=>{
                                         setPrizesOpen(true)
                                         showAppBar(false)
                                     }}>
-                                        <span>{`Призы: ${prizesImage.length}`}</span>
+                                        <span>{`Призы: ${prizesImage.length?prizesImage.length:1}`}</span>
                                     </div>
                                     {
                                         prizesOpen?
+                                            <>
                                             <Lightbox
-                                                mainSrc={prizesImage[prizesIndex]}
-                                                nextSrc={prizesImage[(prizesIndex + 1) % prizesImage.length]}
-                                                prevSrc={prizesImage[(prizesIndex + prizesImage.length - 1) % prizesImage.length]}
-                                                onCloseRequest={() => {showAppBar(true); setPrizesOpen(false)}}
-                                                onMovePrevRequest={() => setPrizesIndex((prizesIndex + prizesImage.length - 1) % prizesImage.length)}
-                                                onMoveNextRequest={() => setPrizesIndex((prizesIndex + 1) % prizesImage.length)}
-                                                imageCaption={prizesName[prizesIndex]}
+                                                image={prizeImage.url}
+                                                title={prizeImage.title}
+                                                images={prizesImage}
+                                                startIndex={prizesIndex}
+                                                onClose={() => {showAppBar(true); setPrizesOpen(false)}}
                                             />
+                                            </>
                                             :
                                             null
                                     }

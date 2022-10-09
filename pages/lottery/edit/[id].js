@@ -189,6 +189,7 @@ const LotteryEdit = React.memo((props) => {
                                                                                 />
                                                                             </label>
                                                                             <TextField
+                                                                                error={!element.name}
                                                                                 label='Название'
                                                                                 value={element.name}
                                                                                 className={classes.inputPrize}
@@ -201,6 +202,7 @@ const LotteryEdit = React.memo((props) => {
                                                                                 }}
                                                                             />
                                                                             <TextField
+                                                                                error={!element.count}
                                                                                 label='Количество'
                                                                                 value={element.count}
                                                                                 className={classes.inputPrize}
@@ -264,6 +266,7 @@ const LotteryEdit = React.memo((props) => {
                                                                                         />
                                                                                     </label>
                                                                                     <TextField
+                                                                                        error={!element.text}
                                                                                         label='Информация'
                                                                                         value={element.text}
                                                                                         className={classes.inputPhotoReports}
@@ -387,7 +390,6 @@ const LotteryEdit = React.memo((props) => {
                             editElement.photoReports = _photoReports
                             if(data.lottery.status!=='разыграна')
                                 editElement.tickets = tickets.map(ticket=>{return {client: ticket.client._id, number: ticket.number}})
-                            console.log(editElement)
                             const action = async() => {
                                 await setLottery(editElement)
                                 Router.push(`/lottery/${data.lottery._id}`)

@@ -93,7 +93,7 @@ export default makeStyles({
         right: '20px'
     },
     countdown: {
-        fontSize: '0.75rem',
+        fontSize: '0.875rem',
         fontWeight: 'bold',
         width: 'calc(100% - 121px)',
         display: 'flex',
