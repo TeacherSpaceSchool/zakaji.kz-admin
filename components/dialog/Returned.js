@@ -8,7 +8,7 @@ import * as mini_dialogActions from '../../redux/actions/mini_dialog'
 import * as snackbarActions from '../../redux/actions/snackbar'
 import Button from '@material-ui/core/Button';
 import dialogContentStyle from '../../src/styleMUI/dialogContent'
-import { pdDDMMYYHHMM, checkFloat } from '../../src/lib'
+import { pdDDMMYYHHMM, checkFloat, pdDDMMYYYYWW } from '../../src/lib'
 import Confirmation from './Confirmation'
 import Geo from '../../components/dialog/Geo'
 import HistoryReturned from '../../components/dialog/HistoryReturned'
@@ -78,14 +78,31 @@ const Returned =  React.memo(
                 </div>
                 <div className={classes.row}>
                     <div className={classes.nameField}>Статус:&nbsp;</div>
-                    <div className={classes.value}>{
-                            status
-                    }</div>
+                    <div className={classes.value}>{status}</div>
                 </div>
+                {
+                    element.inv?
+                        <div className={classes.row}>
+                            <div className={classes.nameField}>Cчет фактура:&nbsp;</div>
+                            <div className={classes.value}>Да</div>
+                        </div>
+                        :
+                        null
+                }
                 <div className={classes.row}>
                     <div className={classes.nameField}>Время возврата: &nbsp;</div>
                     <div className={classes.value}>{pdDDMMYYHHMM(element.createdAt)}</div>
                 </div>
+                {
+                    element.dateDelivery?
+                        <div className={classes.row}>
+                            <div className={classes.nameField}>Дата доставки:&nbsp;</div>
+                            <div className={classes.value}>{pdDDMMYYYYWW(element.dateDelivery)}</div>
+                        </div>
+                        :
+                        null
+
+                }
                 {
                     (['admin', 'суперагент'].includes(profile.role)||allowOrganization)&&element.updatedAt!==element.createdAt?
                        <a>

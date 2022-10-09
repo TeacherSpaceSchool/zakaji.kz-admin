@@ -54,7 +54,7 @@ const OutXMLAds = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/outxmlads`}/>
             </Head>
             <div className='count'>
-                {`Всего интеграции: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {districts.length>0?<CardOutXMLAds organization={router.query.id} districts={districts} list={list} setList={setList}/>:null}

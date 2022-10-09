@@ -94,7 +94,7 @@ const Brand = React.memo((props) => {
             }
             <div className='count'>
                 {
-                    `Всего товаров: ${list.length}`
+                    `Всего: ${list.length}`
                 }
             </div>
         </App>

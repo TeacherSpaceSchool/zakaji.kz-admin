@@ -166,6 +166,15 @@ const Order =  React.memo(
                                 element.orders[0].status
                     }</div>
                 </div>
+                {
+                    element.inv?
+                        <div className={classes.row}>
+                            <div className={classes.nameField}>Cчет фактура:&nbsp;</div>
+                            <div className={classes.value}>Да</div>
+                        </div>
+                        :
+                        null
+                }
                 <div className={classes.row}>
                     <div className={classes.nameField}>Время заказа: &nbsp;</div>
                     <div className={classes.value}>{pdDDMMYYHHMM(element.createdAt)}</div>

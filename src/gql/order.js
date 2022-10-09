@@ -61,6 +61,7 @@ export const getOrders = async(args, client)=>{
                             sync
                             city
                             dateDelivery
+                            inv
                         }
                         sortInvoice {
                             name
@@ -444,6 +445,7 @@ export const getOrder = async({_id})=>{
                             confirmationClient
                             taken
                             sync
+                            inv
                             dateDelivery
                         }
                     }`,

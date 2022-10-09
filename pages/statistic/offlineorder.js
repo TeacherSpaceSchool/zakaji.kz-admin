@@ -45,7 +45,7 @@ const OfflineOrder = React.memo((props) => {
                 {list?
                     <>
                     <div className='count'>
-                        {`Всего сбоев: ${list.length}`}
+                        {`Всего: ${list.length}`}
                     </div>
                     {
                         list.map((element, idx) =>

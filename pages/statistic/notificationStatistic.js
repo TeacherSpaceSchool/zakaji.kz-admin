@@ -48,7 +48,7 @@ const NotificationStatistic = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/notificationStatistic`}/>
             </Head>
             <div className='count'>
-                {`Всего пуш-уведомлений: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 <CardNotificationStatistic setList={setList}/>

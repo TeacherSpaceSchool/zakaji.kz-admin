@@ -100,7 +100,7 @@ const Returneds = React.memo((props) => {
             </Head>
             <div className='count' onClick={()=>setShowStat(!showStat)}>
                         {
-                            `Всего возвратов: ${simpleStatistic[0]}`
+                            `Возвратов: ${simpleStatistic[0]}`
                         }
                         {
                             showStat?
@@ -111,7 +111,7 @@ const Returneds = React.memo((props) => {
                                     simpleStatistic[2]&&simpleStatistic[2]!=='0'?
                                         <>
                                         <br/>
-                                        {`Всего консигнаций: ${simpleStatistic[2]} сом`}
+                                        {`Консигнаций: ${simpleStatistic[2]} сом`}
                                         <br/>
                                         {`Оплачено консигнаций: ${simpleStatistic[3]} сом`}
                                         </>
@@ -122,7 +122,7 @@ const Returneds = React.memo((props) => {
                                     simpleStatistic[4]&&simpleStatistic[4]!=='0'?
                                         <>
                                         <br/>
-                                        {`Всего тоннаж: ${simpleStatistic[4]} кг`}
+                                        {`Тоннаж: ${simpleStatistic[4]} кг`}
                                         </>
                                         :
                                         null
@@ -131,7 +131,7 @@ const Returneds = React.memo((props) => {
                                     simpleStatistic[5]&&simpleStatistic[5]!=='0'?
                                         <>
                                         <br/>
-                                        {`Всего кубатура: ${simpleStatistic[5]} см³`}
+                                        {`Кубатура: ${simpleStatistic[5]} см³`}
                                         </>
                                         :
                                         null

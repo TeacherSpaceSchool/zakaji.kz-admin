@@ -54,7 +54,7 @@ const OutXMLAds = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/outxmlads`}/>
             </Head>
             <div className='count'>
-                {`Всего организаций: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {list?list.map((element, idx)=> {

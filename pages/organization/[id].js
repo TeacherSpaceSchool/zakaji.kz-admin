@@ -46,6 +46,7 @@ const Organization = React.memo((props) => {
     let [superagent, setSuperagent] = useState(data.organization&&data.organization.superagent!=null?data.organization.superagent:true);
     let [onlyIntegrate, setOnlyIntegrate] = useState(data.organization&&data.organization.onlyIntegrate!==null?data.organization.onlyIntegrate:false);
     let [addedClient, setAddedClient] = useState(data.organization&&data.organization.addedClient!==null?data.organization.addedClient:false);
+    let [autointegrate, setAutointegrate] = useState(data.organization&&data.organization.autointegrate!==null?data.organization.autointegrate:false);
     let [autoAccept, setAutoAccept] = useState(data.organization&&data.organization.autoAccept!==null?data.organization.autoAccept:false);
     let [dateDelivery, setDateDelivery] = useState(data.organization&&data.organization.dateDelivery!==null?data.organization.dateDelivery:false);
     let [warehouse, setWarehouse] = useState(data.organization&&data.organization.warehouse!==null?data.organization.warehouse:'');
@@ -251,6 +252,17 @@ const Organization = React.memo((props) => {
                                                     />
                                                 }
                                                 label='Добавлять клиентов'
+                                            />
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
+                                                        checked={autointegrate}
+                                                        onChange={()=>{setAutointegrate(!autointegrate)}}
+                                                        color='primary'
+                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                    />
+                                                }
+                                                label='Автоприем интеграции'
                                             />
                                             <br/>
                                             <div className={classes.geo} style={{color: warehouse&&warehouse.length>0?'#ffb300':'red'}} onClick={()=>{
@@ -464,7 +476,30 @@ const Organization = React.memo((props) => {
                                                 <Button onClick={async()=>{
                                                     if (cities.length>0&&image!==undefined&&name.length>0&&email.length>0&&address.length>0&&phone.length>0&&info.length>0) {
                                                         const action = async() => {
-                                                            await addOrganization({catalog, cities: cities, pass: pass, miniInfo: miniInfo, priotiry: checkInt(priotiry),consignation: consignation, onlyDistrict: onlyDistrict, unite: unite, superagent: superagent, onlyIntegrate: onlyIntegrate, addedClient: addedClient, autoAccept: autoAccept, dateDelivery, warehouse: warehouse, accessToClient: accessToClient, image: image, name: name, address: address, email: email, phone: phone, info: info, minimumOrder: checkInt(minimumOrder)})
+                                                            await addOrganization({
+                                                                catalog,
+                                                                cities: cities,
+                                                                pass: pass,
+                                                                miniInfo: miniInfo,
+                                                                priotiry: checkInt(priotiry),
+                                                                consignation: consignation,
+                                                                onlyDistrict: onlyDistrict,
+                                                                unite: unite,
+                                                                superagent: superagent,
+                                                                onlyIntegrate: onlyIntegrate,
+                                                                addedClient: addedClient,
+                                                                autointegrate,
+                                                                autoAccept: autoAccept,
+                                                                dateDelivery,
+                                                                warehouse: warehouse,
+                                                                accessToClient: accessToClient,
+                                                                image: image,
+                                                                name: name,
+                                                                address: address,
+                                                                email: email,
+                                                                phone: phone,
+                                                                info: info,
+                                                                minimumOrder: checkInt(minimumOrder)})
                                                             Router.push('/organizations')
                                                         }
                                                         setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
@@ -494,6 +529,7 @@ const Organization = React.memo((props) => {
                                                     if(superagent!==data.organization.superagent)editElement.superagent = superagent
                                                     if(onlyIntegrate!==data.organization.onlyIntegrate)editElement.onlyIntegrate = onlyIntegrate
                                                     if(addedClient!==data.organization.addedClient)editElement.addedClient = addedClient
+                                                    if(autointegrate!==data.organization.autointegrate)editElement.autointegrate = autointegrate
                                                     if(autoAccept!==data.organization.autoAccept)editElement.autoAccept = autoAccept
                                                     if(dateDelivery!==data.organization.dateDelivery)editElement.dateDelivery = dateDelivery
                                                     if(warehouse!==data.organization.warehouse)editElement.warehouse = warehouse
@@ -644,7 +680,7 @@ Organization.getInitialProps = async function(ctx) {
             Router.push('/contact')
     return {
         data: {
-            ...ctx.query.id!=='new'?await getOrganization({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined):{organization:{name: '',image: '/static/add.png',address: [],email: [],phone: [],info: '',miniInfo: '',priotiry: 0,minimumOrder: 0,consignation: false,accessToClient: false, onlyDistrict: false, onlyIntegrate: false, addedClient: false, autoAccept: false, dateDelivery: false, warehouse: ''}}
+            ...ctx.query.id!=='new'?await getOrganization({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined):{organization:{name: '',image: '/static/add.png',address: [],email: [],phone: [],info: '',miniInfo: '',priotiry: 0,minimumOrder: 0,consignation: false,accessToClient: false, onlyDistrict: false, onlyIntegrate: false, addedClient: false, autointegrate: false, autoAccept: false, dateDelivery: false, warehouse: ''}}
         }
 
     };

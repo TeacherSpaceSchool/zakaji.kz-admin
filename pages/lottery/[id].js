@@ -273,8 +273,8 @@ const LotteryEdit = React.memo((props) => {
                 process.browser&&confetti?
                     <Confetti
                         numberOfPieces={50}
-                        width={window.innerWidth}
-                        height={window.innerHeight}
+                        width={window.innerWidth-10}
+                        height={window.innerHeight-10}
                     />
                     :
                     null

@@ -102,7 +102,7 @@ const Organization = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/brands`}/>
             </Head>
             <div className='count'>
-                {`Всего брендов: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             {
                 isMobileApp?

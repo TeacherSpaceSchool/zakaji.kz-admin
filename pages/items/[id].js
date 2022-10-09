@@ -111,7 +111,7 @@ const Items = React.memo((props) => {
                     :null}
             <div className={classes.page}>
                 <div className='count'>
-                    {`Всего товаров: ${list.length}`}
+                    {`Всего: ${list.length}`}
                 </div>
 
                 {list?list.map((element, idx)=> {

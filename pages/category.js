@@ -70,7 +70,7 @@ const Index = React.memo((props) => {
             </Head>
             <div className={classes.page}>
                 <div className='count'>
-                    {`Всего категорий: ${list.length}`}
+                    {`Всего: ${list.length}`}
                 </div>
                 {profile.role==='admin'?
                     <>

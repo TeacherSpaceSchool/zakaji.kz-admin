@@ -54,7 +54,7 @@ const AgentRoutes = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/agentroutes`}/>
             </Head>
             <div className='count'>
-                {`Всего организаций: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {

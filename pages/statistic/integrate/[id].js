@@ -73,7 +73,7 @@ const Integrate = React.memo((props) => {
             </Head>
             <div className={classes.page}>
                 <div className='count' onClick={()=>setShowStat(!showStat)}>
-                    {`Всего интеграций: ${simpleStatistic}`}
+                    {`Всего: ${simpleStatistic}`}
                     {
                         showStat?
                             <>

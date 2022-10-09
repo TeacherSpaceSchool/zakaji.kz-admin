@@ -111,18 +111,18 @@ const Orders = React.memo((props) => {
             </Head>
             <div className='count' onClick={()=>setShowStat(!showStat)}>
                         {
-                            `Всего заказов: ${simpleStatistic[0]}`
+                            `Заказов: ${simpleStatistic[0]}`
                         }
                         {
                             showStat?
                                 <>
                                 <br/>
-                                {simpleStatistic[1]&&simpleStatistic[1]!=='0'?`Всего сумма: ${simpleStatistic[1]} сом`:null}
+                                {simpleStatistic[1]&&simpleStatistic[1]!=='0'?`Сумма: ${simpleStatistic[1]} сом`:null}
                                 {
                                     simpleStatistic[2]&&simpleStatistic[2]!=='0'?
                                         <>
                                         <br/>
-                                        {`Всего консигнаций: ${simpleStatistic[2]} сом`}
+                                        {`Консигнаций: ${simpleStatistic[2]} сом`}
                                         <br/>
                                         {`Оплачено консигнаций: ${simpleStatistic[3]} сом`}
                                         </>
@@ -133,7 +133,7 @@ const Orders = React.memo((props) => {
                                     simpleStatistic[4]&&simpleStatistic[4]!=='0'?
                                         <>
                                         <br/>
-                                        {`Всего тоннаж: ${simpleStatistic[4]} кг`}
+                                        {`Тоннаж: ${simpleStatistic[4]} кг`}
                                         </>
                                         :
                                         null
@@ -142,7 +142,7 @@ const Orders = React.memo((props) => {
                                     simpleStatistic[5]&&simpleStatistic[5]!=='0'?
                                         <>
                                         <br/>
-                                        {`Всего кубатура: ${simpleStatistic[5]} см³`}
+                                        {`Кубатура: ${simpleStatistic[5]} см³`}
                                         </>
                                         :
                                         null

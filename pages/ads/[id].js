@@ -64,7 +64,7 @@ const Ads = React.memo((props) => {
             </Head>
             <div className={classes.page}>
                 <div className='count'>
-                    {`Всего акций: ${list.length}`}
+                    {`Всего: ${list.length}`}
                 </div>
                 {['организация', 'admin'].includes(profile.role)?<CardAds list={list} edit={true} items={data.brands} organization={router.query.id} setList={setList}/>:null}
                 {list?list.map((element, idx)=> {

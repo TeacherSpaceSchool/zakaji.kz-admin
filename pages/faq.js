@@ -60,7 +60,7 @@ const Faqs = React.memo((props) => {
             </Head>
             <div className={classes.page}>
                 <div className='count'>
-                    {`Всего инструкций: ${list.length}`}
+                    {`Всего: ${list.length}`}
                 </div>
                 {profile.role==='admin'?<CardFaq list={list} setList={setList}/>:null}
                 {list?list.map((element, idx)=> {

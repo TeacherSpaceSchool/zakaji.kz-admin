@@ -54,7 +54,7 @@ const Subscriber = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/statistic/subscriber`}/>
             </Head>
             <div className='count' onClick={()=>setShowStat(!showStat)}>
-                {`Всего подписчиков: ${list.length}`}
+                {`Всего: ${list.length}`}
                 {
                     showStat?
                         <>

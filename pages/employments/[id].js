@@ -74,7 +74,7 @@ const Employment = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/employments/${router.query.id}`}/>
             </Head>
             <div className='count'>
-                {`Всего сотрудников: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {list?list.map((element, idx)=> {

@@ -12,6 +12,7 @@ export const getReturnedsTrash = async(args, client)=>{
                         returnedsTrash(search: $search, skip: $skip) {
                             _id
                             createdAt
+                            dateDelivery
                             updatedAt
                             items
                                 {
@@ -77,7 +78,9 @@ export const getReturneds = async(args, client)=>{
                         returneds(search: $search, sort: $sort, date: $date, skip: $skip, city: $city) {
                             _id
                             createdAt
+                            dateDelivery
                             updatedAt
+                            inv
                             items
                                 {
                                     _id
@@ -146,6 +149,7 @@ export const getReturnedsFromDistrict = async(args, client)=>{
                         returnedsFromDistrict(organization: $organization, date: $date, district: $district) {
                             _id
                             createdAt
+                            dateDelivery
                             updatedAt
                             items
                                 {
@@ -276,8 +280,8 @@ export const addReturned = async(element)=>{
         await client.mutate({
             variables: element,
             mutation : gql`
-                    mutation ($info: String, $inv: Boolean, $address: [[String]], $organization: ID!, $client: ID!, $items: [ReturnedItemsInput]) {
-                        addReturned(info: $info, inv: $inv, address: $address, organization: $organization, client: $client, items: $items) {
+                    mutation ($dateDelivery: Date!, $unite: Boolean, $info: String, $inv: Boolean, $address: [[String]], $organization: ID!, $client: ID!, $items: [ReturnedItemsInput]) {
+                        addReturned(dateDelivery: $dateDelivery, unite: $unite, info: $info, inv: $inv, address: $address, organization: $organization, client: $client, items: $items) {
                              data
                         }
                     }`})
@@ -328,6 +332,7 @@ export const setReturned = async(element)=>{
                         setReturned(items: $items, returned: $returned, confirmationForwarder: $confirmationForwarder, cancelForwarder: $cancelForwarder) {
                             _id
                             createdAt
+                            dateDelivery
                             updatedAt
                             items
                                 {
@@ -388,6 +393,7 @@ export const subscriptionReturned = gql`
                              
                             _id
                             createdAt
+                            dateDelivery
                             updatedAt
                             items
                                 {

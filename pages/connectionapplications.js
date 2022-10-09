@@ -76,7 +76,7 @@ const ConnectionApplications = React.memo((props) => {
             {
                 profile.role==='admin'?
                     <div className='count'>
-                        {`Всего заявок: ${simpleStatistic}`}
+                        {`Всего: ${simpleStatistic}`}
                     </div>
                     :
                     null

@@ -53,7 +53,7 @@ const Lotterys = React.memo((props) => {
             </Head>
             <div className={classes.page}>
                 <div className='count'>
-                    {`Всего лотерей: ${data.lotterys.length}`}
+                    {`Всего: ${data.lotterys.length}`}
                 </div>
                 {data.lotterys?data.lotterys.map((element, idx)=> {
                     if(idx<pagination)

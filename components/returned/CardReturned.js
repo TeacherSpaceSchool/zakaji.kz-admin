@@ -8,7 +8,7 @@ import cardReturnedStyle from '../../src/styleMUI/returned/cardReturned'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as mini_dialogActions from '../../redux/actions/mini_dialog'
-import { pdDDMMYYHHMM } from '../../src/lib'
+import { pdDDMMYYHHMM, pdDDMMYYYYWW } from '../../src/lib'
 import Returned from '../dialog/Returned'
 import Confirmation from '../../components/dialog/Confirmation'
 import { deleteReturneds, restoreReturneds } from '../../src/gql/returned'
@@ -62,6 +62,16 @@ const CardReturned = React.memo((props) => {
                         <div className={classes.nameField}>Время возврата:&nbsp;</div>
                         <div className={classes.value}>{pdDDMMYYHHMM(element.createdAt)}</div>
                     </div>
+                    {
+                        element.dateDelivery?
+                            <div className={classes.row}>
+                                <div className={classes.nameField}>Дата доставки:&nbsp;</div>
+                                <div className={classes.value}>{pdDDMMYYYYWW(element.dateDelivery)}</div>
+                            </div>
+                            :
+                            null
+
+                    }
                     {
                         ['admin', 'суперорганизация', 'организация', 'менеджер'].includes(profile.role)&&element.updatedAt!==element.createdAt?
                             <div className={classes.row}>

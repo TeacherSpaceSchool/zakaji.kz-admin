@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
@@ -15,6 +15,12 @@ import { addAgentHistoryGeo } from '../../src/gql/agentHistoryGeo'
 import {getGeoDistance} from '../../src/lib'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { getDeliveryDate } from '../../src/gql/deliveryDate';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import { pdDDMMYYYYWW } from '../../src/lib';
 
 const ReturnedConfirmed =  React.memo(
     (props) =>{
@@ -28,6 +34,44 @@ const ReturnedConfirmed =  React.memo(
         let handleComent =  (event) => {
             setComent(event.target.value)
         };
+        let [unlock, setUnlock] = useState(false);
+        let [dateDelivery, setDateDelivery] = useState(undefined);
+        let handleDateDelivery =  (event) => {
+            setDateDelivery(event.target.value)
+        };
+        let [dateDeliverys, setDateDeliverys] = useState([true, true, true, true, true, true, false]);
+        let [week, setWeek] = useState([]);
+        useEffect(()=>{
+            (async()=>{
+                if(!unlock) {
+                    dateDeliverys = (await getDeliveryDate({
+                        client: client._id,
+                        organization: organization._id
+                    })).deliveryDate
+                    if (dateDeliverys) {
+                        dateDeliverys = dateDeliverys.days
+                        setDateDeliverys([...dateDeliverys])
+                    }
+                    else
+                        dateDeliverys = [true, true, true, true, true, true, false]
+                    for (let i = 0; i < 7; i++) {
+                        let day = new Date()
+                        if(day.getHours()>=3)
+                            day.setDate(day.getDate()+1)
+                        day.setDate(day.getDate()+i)
+                        day.setHours(3, 0, 0, 0)
+                        let dayWeek = day.getDay() === 0 ? 6 : (day.getDay() - 1)
+                        week[dayWeek] = day
+                        if(!dateDelivery&&dateDeliverys[dayWeek]){
+                            dateDelivery = day
+                            setDateDelivery(dateDelivery)
+                        }
+                    }
+                    setWeek([...week])
+                    setUnlock(true)
+                }
+            })()
+        },[])
         return (
             <div className={classes.main}>
                 <div style={{width: width}} className={classes.itogo}><b>Адрес доставки: &nbsp;</b>{client.address[0][0]}</div>
@@ -46,6 +90,24 @@ const ReturnedConfirmed =  React.memo(
                     }}
                 />
                 <br/>
+                {
+                    week.length>0?
+                        <>
+                        <FormControl style={{width: width}} className={isMobileApp?classes.inputM:classes.inputD}>
+                            <InputLabel>День доставки</InputLabel>
+                            <Select value={dateDelivery} onChange={handleDateDelivery}>
+                                {week.map((element, idx)=>{
+                                        if(dateDeliverys[idx])
+                                            return <MenuItem value={element}>{pdDDMMYYYYWW(element)}</MenuItem>
+                                    }
+                                )}
+                            </Select>
+                        </FormControl>
+                        <br/>
+                        </>
+                        :
+                        null
+                }
                 <FormControlLabel
                     style={{width: width}}
                     onChange={(e)=>{
@@ -58,26 +120,24 @@ const ReturnedConfirmed =  React.memo(
                 <br/>
                 <div>
                     <Button variant='contained' color='primary' onClick={async()=>{
-                        const action = async () => {
-                            if (geo&&client.address[0][1].includes(', ')) {
-                                let distance = getGeoDistance(geo.coords.latitude, geo.coords.longitude, ...(client.address[0][1].split(', ')))
-                                if(distance<1000){
-                                    await addAgentHistoryGeo({client: client._id, geo: `${geo.coords.latitude}, ${geo.coords.longitude}`})
-                                }
+                        if (geo&&client.address[0][1].includes(', ')) {
+                            let distance = getGeoDistance(geo.coords.latitude, geo.coords.longitude, ...(client.address[0][1].split(', ')))
+                            if(distance<1000){
+                                await addAgentHistoryGeo({client: client._id, geo: `${geo.coords.latitude}, ${geo.coords.longitude}`})
                             }
-
-                            await addReturned({
-                                inv,
-                                info: coment,
-                                address: client.address[0],
-                                organization: organization._id,
-                                client: client._id,
-                                items: Object.values(items)
-                            })
-                            Router.push('/returneds')
-                            showMiniDialog(false);
                         }
-                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                        await addReturned({
+                            inv,
+                            unite: organization.unite,
+                            info: coment,
+                            address: client.address[0],
+                            organization: organization._id,
+                            client: client._id,
+                            items: Object.values(items),
+                            dateDelivery
+                        })
+                        Router.push('/returneds')
+                        showMiniDialog(false);
                     }} className={classes.button}>
                         Добавить
                     </Button>

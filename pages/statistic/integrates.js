@@ -57,7 +57,7 @@ const Integrates = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/statistic/integrates`}/>
             </Head>
             <div className='count'>
-                {`Всего организаций: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {

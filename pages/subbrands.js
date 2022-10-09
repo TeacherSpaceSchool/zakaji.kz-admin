@@ -80,7 +80,7 @@ const SubBrands = React.memo((props) => {
             </Head>
             <div className={classes.page}>
                 <div className='count'>
-                    {`Всего подбрендов: ${list.length}`}
+                    {`Всего: ${list.length}`}
                 </div>
                 <CardSubBrand list={list} organizations={organizations} setList={setList}/>
                 {list?list.map((element, idx)=> {

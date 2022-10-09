@@ -79,7 +79,7 @@ const Client = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/clients`}/>
             </Head>
             <div className='count'>
-                {`Всего клиентов: ${simpleStatistic}`}
+                {`Всего: ${simpleStatistic}`}
             </div>
             <div className={classes.page}>
                 {list?list.map((element, idx)=> {

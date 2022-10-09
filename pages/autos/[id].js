@@ -73,7 +73,7 @@ const Autos = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/autos/${router.query.id}`}/>
             </Head>
             <div className='count'>
-                {`Всего транспорта: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 <CardAuto organization={router.query.id} list={list} employments={data.ecspeditors} setList={setList}/>

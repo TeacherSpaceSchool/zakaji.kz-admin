@@ -54,7 +54,7 @@ const Routes = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/routes`}/>
             </Head>
             <div className='count'>
-                {`Всего организаций: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {

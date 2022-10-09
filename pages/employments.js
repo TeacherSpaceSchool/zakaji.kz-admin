@@ -54,7 +54,7 @@ const Employments = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/employments`}/>
             </Head>
             <div className='count'>
-                {`Всего организаций: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {

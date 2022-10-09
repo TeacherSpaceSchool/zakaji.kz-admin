@@ -59,7 +59,7 @@ const Blog = React.memo((props) => {
                 <link rel='canonical' href={`${urlMain}/blog`}/>
             </Head>
             <div className='count'>
-                {`Всего публикаций: ${list.length}`}
+                {`Всего: ${list.length}`}
             </div>
             <div className={classes.page}>
                 {profile.role==='admin'?<CardBlog list={list} setList={setList}/>:null}
