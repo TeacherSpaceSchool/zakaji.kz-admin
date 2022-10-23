@@ -129,6 +129,7 @@ const ReturnedConfirmed =  React.memo(
                         await addReturned({
                             inv,
                             unite: organization.unite,
+                            autoAccept: organization.autoAccept,
                             info: coment,
                             address: client.address[0],
                             organization: organization._id,

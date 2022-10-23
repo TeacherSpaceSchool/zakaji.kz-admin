@@ -107,55 +107,55 @@ const App = React.memo(props => {
                 subscriptionOrderRes.data.reloadOrder &&
                 profile._id !== subscriptionOrderRes.data.reloadOrder.who
         ) {
-                if (router.pathname === '/orders') {
-                    if (subscriptionOrderRes.data.reloadOrder.type === 'ADD'&&!search.length&&!filter.length) {
-                        let have = false
-                        let _list = [...list]
-                        for (let i = 0; i < _list.length; i++) {
-                            if (_list[i]._id === subscriptionOrderRes.data.reloadOrder.invoice._id) {
-                                _list[i] = subscriptionOrderRes.data.reloadOrder.invoice
-                                have = true
-                            }
+            if (router.pathname === '/orders') {
+                if (subscriptionOrderRes.data.reloadOrder.type === 'ADD'&&!search.length&&!filter.length) {
+                    let have = false
+                    let _list = [...list]
+                    for (let i = 0; i < _list.length; i++) {
+                        if (_list[i]._id === subscriptionOrderRes.data.reloadOrder.invoice._id) {
+                            _list[i] = subscriptionOrderRes.data.reloadOrder.invoice
+                            have = true
                         }
-                        if (have)
-                            setList([..._list])
-                        else
-                            setList([subscriptionOrderRes.data.reloadOrder.invoice, ...list])
                     }
-                    else if (subscriptionOrderRes.data.reloadOrder.type === 'SET') {
-                        let _list = [...list]
-                        for (let i = 0; i < _list.length; i++) {
-                            if (_list[i]._id === subscriptionOrderRes.data.reloadOrder.invoice._id) {
-                                _list[i] = subscriptionOrderRes.data.reloadOrder.invoice
-                            }
+                    if (have)
+                        setList([..._list])
+                    else
+                        setList([subscriptionOrderRes.data.reloadOrder.invoice, ...list])
+                }
+                else if (subscriptionOrderRes.data.reloadOrder.type === 'SET') {
+                    let _list = [...list]
+                    for (let i = 0; i < _list.length; i++) {
+                        if (_list[i]._id === subscriptionOrderRes.data.reloadOrder.invoice._id) {
+                            _list[i] = subscriptionOrderRes.data.reloadOrder.invoice
                         }
+                    }
+                    setList([..._list])
+                }
+                else if (subscriptionOrderRes.data.reloadOrder.type === 'DELETE') {
+                    let index = undefined
+                    let _list = [...list]
+                    for (let i = 0; i < _list.length; i++) {
+                        if (_list[i]._id === subscriptionOrderRes.data.reloadOrder.invoice._id) {
+                            index = i
+                        }
+                    }
+                    if(index) {
+                        _list.splice(index, 1);
                         setList([..._list])
                     }
-                    else if (subscriptionOrderRes.data.reloadOrder.type === 'DELETE') {
-                        let index = undefined
-                        let _list = [...list]
-                        for (let i = 0; i < _list.length; i++) {
-                            if (_list[i]._id === subscriptionOrderRes.data.reloadOrder.invoice._id) {
-                                index = i
-                            }
-                        }
-                        if(index) {
-                            _list.splice(index, 1);
-                            setList([..._list])
-                        }
-                    }
-                }
-                else {
-                    if (!unread.orders) {
-                        unread.orders = true
-                        setUnread({...unread})
-                    }
-                    if (navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate)
-                        navigator.vibrate(200);
-                    /*if (alert.current)
-                        alert.current.play()*/
                 }
             }
+            else {
+                if (!unread.orders) {
+                    unread.orders = true
+                    setUnread({...unread})
+                }
+                if (navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate)
+                    navigator.vibrate(200);
+                /*if (alert.current)
+                    alert.current.play()*/
+            }
+        }
     },[subscriptionOrderRes.data])
     useEffect(() => {
         router.beforePopState(() => {

@@ -223,17 +223,6 @@ const Organization = React.memo((props) => {
                                             <FormControlLabel
                                                 control={
                                                     <Switch
-                                                        checked={autoAccept}
-                                                        onChange={()=>{setAutoAccept(!autoAccept)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Автоприем заказов'
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
                                                         checked={dateDelivery}
                                                         onChange={()=>{setDateDelivery(!dateDelivery)}}
                                                         color="primary"
@@ -252,6 +241,17 @@ const Organization = React.memo((props) => {
                                                     />
                                                 }
                                                 label='Добавлять клиентов'
+                                            />
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
+                                                        checked={autoAccept}
+                                                        onChange={()=>{setAutoAccept(!autoAccept)}}
+                                                        color="primary"
+                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                    />
+                                                }
+                                                label='Автоприем заказов'
                                             />
                                             <FormControlLabel
                                                 control={
@@ -391,6 +391,7 @@ const Organization = React.memo((props) => {
                                             />
                                         </FormControl>
                                     )}
+                                    <br/>
                                     <Button onClick={async()=>{
                                         addAddress()
                                     }} size='small' color='primary'>
@@ -422,6 +423,7 @@ const Organization = React.memo((props) => {
                                             />
                                         </FormControl>
                                     )}
+                                    <br/>
                                     <Button onClick={async()=>{
                                         addEmail()
                                     }} size='small' color='primary'>
@@ -453,6 +455,7 @@ const Organization = React.memo((props) => {
                                             />
                                         </FormControl>
                                     )}
+                                    <br/>
                                     <Button onClick={async()=>{
                                         addPhone()
                                     }} size='small' color='primary'>

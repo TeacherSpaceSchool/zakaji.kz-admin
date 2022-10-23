@@ -165,6 +165,17 @@ const Returned =  React.memo(
                         :
                         null
                 }
+                {
+                    element.agent&&element.agent.name?
+                        <a href={`/employment/${element.agent._id}`} target='_blank'>
+                            <div className={classes.row}>
+                                <div className={classes.nameField}>Агент:&nbsp;</div>
+                                <div className={classes.value}>{element.agent.name}</div>
+                            </div>
+                        </a>
+                        :
+                        null
+                }
                 <div className={classes.row}>
                     <div className={classes.nameField}>Сумма:&nbsp;</div>
                     <div className={classes.value}>{`${allPrice} сом`}</div>

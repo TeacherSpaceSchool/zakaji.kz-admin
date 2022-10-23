@@ -280,8 +280,8 @@ export const addReturned = async(element)=>{
         await client.mutate({
             variables: element,
             mutation : gql`
-                    mutation ($dateDelivery: Date!, $unite: Boolean, $info: String, $inv: Boolean, $address: [[String]], $organization: ID!, $client: ID!, $items: [ReturnedItemsInput]) {
-                        addReturned(dateDelivery: $dateDelivery, unite: $unite, info: $info, inv: $inv, address: $address, organization: $organization, client: $client, items: $items) {
+                    mutation ($dateDelivery: Date!, $autoAccept: Boolean, $unite: Boolean, $info: String, $inv: Boolean, $address: [[String]], $organization: ID!, $client: ID!, $items: [ReturnedItemsInput]) {
+                        addReturned(dateDelivery: $dateDelivery, autoAccept: $autoAccept, unite: $unite, info: $info, inv: $inv, address: $address, organization: $organization, client: $client, items: $items) {
                              data
                         }
                     }`})
