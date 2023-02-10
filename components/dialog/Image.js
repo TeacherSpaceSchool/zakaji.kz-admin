@@ -12,8 +12,8 @@ const Image =  React.memo(
         const { showFullDialog } = props.mini_dialogActions;
         return (
             <img style={{
-                width: '100%',
-                height: '100%',
+                width: 'calc(100vw - 50px)',
+                height: 'calc(100vh - 85px)',
                 objectFit: 'scale-down'
             }} src={imgSrc} onClick={()=>{showFullDialog(false)}}/>
         );

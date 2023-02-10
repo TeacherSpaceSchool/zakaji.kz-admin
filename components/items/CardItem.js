@@ -119,7 +119,7 @@ const CardItem = React.memo((props) => {
                         />
                     </a>
                 </Link>
-                <Link href={`${profile.role==='client'?'catalog':'item'}/[id]`} as={`/${profile.role==='client'?'catalog':'item'}/${profile.role==='client'?element.organization._id:element._id}`}>
+                <Link href={`/${profile.role==='client'?'catalog':'item'}/[id]`} as={`/${profile.role==='client'?'catalog':'item'}/${profile.role==='client'?element.organization._id:element._id}`}>
                     <a className={classes.name}>
                         {element.name}
                     </a>
