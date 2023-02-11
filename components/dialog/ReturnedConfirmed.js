@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import dialogContentStyle from '../../src/styleMUI/dialogContent'
 import Router from 'next/router'
-import Confirmation from './Confirmation'
 import Link from 'next/link';
 import { addAgentHistoryGeo } from '../../src/gql/agentHistoryGeo'
 import {getGeoDistance} from '../../src/lib'
@@ -26,7 +25,7 @@ const ReturnedConfirmed =  React.memo(
     (props) =>{
         const { isMobileApp } = props.app;
         const { client, allPrice, organization, items, geo } = props;
-        const { showMiniDialog, setMiniDialog } = props.mini_dialogActions;
+        const { showMiniDialog } = props.mini_dialogActions;
         const { classes } = props;
         const width = isMobileApp? (window.innerWidth-112) : 500
         let [coment, setComent] = useState('');
@@ -129,7 +128,6 @@ const ReturnedConfirmed =  React.memo(
                         await addReturned({
                             inv,
                             unite: organization.unite,
-                            autoAccept: organization.autoAccept,
                             info: coment,
                             address: client.address[0],
                             organization: organization._id,

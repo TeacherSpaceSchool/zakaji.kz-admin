@@ -16,7 +16,6 @@ import Input from '@material-ui/core/Input';
 import dialogContentStyle from '../../src/styleMUI/dialogContent'
 import Checkbox from '@material-ui/core/Checkbox';
 import Router from 'next/router'
-import Confirmation from './Confirmation'
 import Link from 'next/link';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import { addBasket } from '../../src/gql/basket';
@@ -32,7 +31,7 @@ const BuyBasket =  React.memo(
         const { isMobileApp } = props.app;
         const { profile } = props.user;
         const { client, allPrice, organization, adss, agent, basket, geo, classes } = props;
-        const { showMiniDialog, setMiniDialog } = props.mini_dialogActions;
+        const { showMiniDialog } = props.mini_dialogActions;
         const { showSnackBar } = props.snackbarActions;
         const width = isMobileApp? (window.innerWidth-112) : 500
         let [coment, setComent] = useState('');
@@ -206,7 +205,6 @@ const BuyBasket =  React.memo(
                                            inv: inv,
                                            priority: priority,
                                            unite: organization.unite,
-                                           autoAccept: organization.autoAccept,
                                            info: coment,
                                            paymentMethod: paymentMethod,
                                            organization: organization._id,
@@ -220,7 +218,6 @@ const BuyBasket =  React.memo(
                                            ...(geo?{geo: {latitude: geo.coords.latitude, longitude: geo.coords.longitude}}:{}),
                                            inv: inv,
                                            priority: priority,
-                                           autoAccept: organization.autoAccept,
                                            unite: organization.unite,
                                            info: coment,
                                            paymentMethod: paymentMethod,

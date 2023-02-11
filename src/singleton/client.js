@@ -40,9 +40,7 @@ export class SingletonApolloClient {
             if (ctx.graphQLErrors)
                 ctx.graphQLErrors.map(({ message, locations, path }) =>{
                     new SingletonStore().getStore().dispatch(showSnackBar('Ошибка'))
-                    console.log(
-                        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-                    )
+                    console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
                 });
             if (ctx.networkError) console.log(`[Network error]: ${ctx.networkError}`);
         });

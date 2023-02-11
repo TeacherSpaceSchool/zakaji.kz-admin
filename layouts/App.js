@@ -139,7 +139,7 @@ const App = React.memo(props => {
                             index = i
                         }
                     }
-                    if(index) {
+                    if(index!==undefined) {
                         _list.splice(index, 1);
                         setList([..._list])
                     }

@@ -47,7 +47,8 @@ const Organization = React.memo((props) => {
     let [onlyIntegrate, setOnlyIntegrate] = useState(data.organization&&data.organization.onlyIntegrate!==null?data.organization.onlyIntegrate:false);
     let [addedClient, setAddedClient] = useState(data.organization&&data.organization.addedClient!==null?data.organization.addedClient:false);
     let [autointegrate, setAutointegrate] = useState(data.organization&&data.organization.autointegrate!==null?data.organization.autointegrate:false);
-    let [autoAccept, setAutoAccept] = useState(data.organization&&data.organization.autoAccept!==null?data.organization.autoAccept:false);
+    let [autoAcceptAgent, setAutoAcceptAgent] = useState(data.organization&&data.organization.autoAcceptAgent!==null?data.organization.autoAcceptAgent:false);
+    let [autoAcceptNight, setAutoAcceptNight] = useState(data.organization&&data.organization.autoAcceptNight!==null?data.organization.autoAcceptNight:false);
     let [dateDelivery, setDateDelivery] = useState(data.organization&&data.organization.dateDelivery!==null?data.organization.dateDelivery:false);
     let [warehouse, setWarehouse] = useState(data.organization&&data.organization.warehouse!==null?data.organization.warehouse:'');
     let [consignation, setConsignation] = useState(data.organization&&data.organization.consignation!==null?data.organization.consignation:false);
@@ -242,17 +243,28 @@ const Organization = React.memo((props) => {
                                                 }
                                                 label='Добавлять клиентов'
                                             />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={autoAccept}
-                                                        onChange={()=>{setAutoAccept(!autoAccept)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Автоприем заказов'
-                                            />
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            checked={autoAcceptAgent}
+                                                            onChange={()=>{setAutoAcceptAgent(!autoAcceptAgent)}}
+                                                            color="primary"
+                                                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                        />
+                                                    }
+                                                    label='Автоприем заказов агентов'
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            checked={autoAcceptNight}
+                                                            onChange={()=>{setAutoAcceptNight(!autoAcceptNight)}}
+                                                            color="primary"
+                                                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                        />
+                                                    }
+                                                    label='Автоприем заказов ночью'
+                                                />
                                             <FormControlLabel
                                                 control={
                                                     <Switch
@@ -492,7 +504,8 @@ const Organization = React.memo((props) => {
                                                                 onlyIntegrate: onlyIntegrate,
                                                                 addedClient: addedClient,
                                                                 autointegrate,
-                                                                autoAccept: autoAccept,
+                                                                autoAcceptAgent: autoAcceptAgent,
+                                                                autoAcceptNight: autoAcceptNight,
                                                                 dateDelivery,
                                                                 warehouse: warehouse,
                                                                 accessToClient: accessToClient,
@@ -533,7 +546,8 @@ const Organization = React.memo((props) => {
                                                     if(onlyIntegrate!==data.organization.onlyIntegrate)editElement.onlyIntegrate = onlyIntegrate
                                                     if(addedClient!==data.organization.addedClient)editElement.addedClient = addedClient
                                                     if(autointegrate!==data.organization.autointegrate)editElement.autointegrate = autointegrate
-                                                    if(autoAccept!==data.organization.autoAccept)editElement.autoAccept = autoAccept
+                                                    if(autoAcceptAgent!==data.organization.autoAcceptAgent)editElement.autoAcceptAgent = autoAcceptAgent
+                                                    if(autoAcceptNight!==data.organization.autoAcceptNight)editElement.autoAcceptNight = autoAcceptNight
                                                     if(dateDelivery!==data.organization.dateDelivery)editElement.dateDelivery = dateDelivery
                                                     if(warehouse!==data.organization.warehouse)editElement.warehouse = warehouse
                                                     if(consignation!==data.organization.consignation)editElement.consignation = consignation
@@ -683,7 +697,7 @@ Organization.getInitialProps = async function(ctx) {
             Router.push('/contact')
     return {
         data: {
-            ...ctx.query.id!=='new'?await getOrganization({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined):{organization:{name: '',image: '/static/add.png',address: [],email: [],phone: [],info: '',miniInfo: '',priotiry: 0,minimumOrder: 0,consignation: false,accessToClient: false, onlyDistrict: false, onlyIntegrate: false, addedClient: false, autointegrate: false, autoAccept: false, dateDelivery: false, warehouse: ''}}
+            ...ctx.query.id!=='new'?await getOrganization({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined):{organization:{name: '',image: '/static/add.png',address: [],email: [],phone: [],info: '',miniInfo: '',priotiry: 0,minimumOrder: 0,consignation: false,accessToClient: false, onlyDistrict: false, onlyIntegrate: false, addedClient: false, autointegrate: false, autoAcceptNight: false, autoAcceptAgent: false, dateDelivery: false, warehouse: ''}}
         }
 
     };

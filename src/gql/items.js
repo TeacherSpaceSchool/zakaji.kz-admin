@@ -20,7 +20,7 @@ export const getBrandOrganizations = async({search, filter, city}, client)=>{
                             priotiry
                             type
                             unite
-                            autoAccept
+                            autoAcceptAgent
                           }
                           filterOrganization {
                            name
