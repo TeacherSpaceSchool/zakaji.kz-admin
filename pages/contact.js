@@ -341,18 +341,20 @@ const Contact = React.memo((props) => {
                                                     {name}
                                                 </div>
                                                 <br/>
-                                                <div className={classes.row}>
-                                                    <div className={classes.nameField}>
-                                                        Адрес:&nbsp;
-                                                    </div>
-                                                    <div className={classes.column}>
-                                                        {address.map((element, idx)=>
-                                                            <div key={`address${idx}`} className={classes.value}>
-                                                                {element}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
+                                                {
+                                                    address[0]?<div className={classes.row}>
+                                                        <div className={classes.nameField}>
+                                                            Адрес:&nbsp;
+                                                        </div>
+                                                        <div className={classes.column}>
+                                                            {address.map((element, idx)=>
+                                                                <div key={`address${idx}`} className={classes.value}>
+                                                                    {element}
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>:null
+                                                }
                                                 <div className={classes.row}>
                                                     <div className={classes.nameField}>
                                                         Телефон:&nbsp;
@@ -379,18 +381,21 @@ const Contact = React.memo((props) => {
                                                         })}
                                                     </div>
                                                 </div>
-                                                <div className={classes.row}>
-                                                    <div className={classes.nameField}>
-                                                        E-mail:&nbsp;
-                                                    </div>
-                                                    <div className={classes.column}>
-                                                        {email.map((element, idx)=>
-                                                            <a href={`mailto:${element}`} key={`email${idx}`} className={classes.value}>
-                                                                {element}
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                </div>
+                                                {
+                                                    email[0]?<div className={classes.row}>
+                                                        <div className={classes.nameField}>
+                                                            E-mail:&nbsp;
+                                                        </div>
+                                                        <div className={classes.column}>
+                                                            {email.map((element, idx) =>
+                                                                <a href={`mailto:${element}`} key={`email${idx}`}
+                                                                   className={classes.value}>
+                                                                    {element}
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    </div>:null
+                                                }
                                                 <br/>
                                                 <div className={classes.info}>
                                                     {info}
