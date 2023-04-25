@@ -194,9 +194,6 @@ const ItemsCostPrice = React.memo((props) => {
                     showMiniDialog(true)
                     close()
                 }}>Сохранить</MenuItem>
-                <MenuItem onClick={async()=>{
-                    close()
-                }}>Закрыть</MenuItem>
             </Menu>
         </App>
     )

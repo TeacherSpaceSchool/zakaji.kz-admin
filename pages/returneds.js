@@ -192,7 +192,7 @@ const Returneds = React.memo((props) => {
                     horizontal: 'left',
                 }}
             >
-                <MenuItem onClick={async()=>{
+                <MenuItem style={{color: 'red'}} onClick={async()=>{
                     const action = async() => {
                         let _list = [...list]
                         for(let i=0; i<_list.length; i++){
@@ -209,10 +209,6 @@ const Returneds = React.memo((props) => {
                     setSelected([])
                     close()
                 }}>Удалить</MenuItem>
-                <MenuItem onClick={async()=>{
-                    setSelected([])
-                    close()
-                }}>Закрыть</MenuItem>
             </Menu>
         </App>
     )

@@ -46,7 +46,7 @@ const Organization = React.memo((props) => {
     let [superagent, setSuperagent] = useState(data.organization&&data.organization.superagent!=null?data.organization.superagent:true);
     let [onlyIntegrate, setOnlyIntegrate] = useState(data.organization&&data.organization.onlyIntegrate!==null?data.organization.onlyIntegrate:false);
     let [addedClient, setAddedClient] = useState(data.organization&&data.organization.addedClient!==null?data.organization.addedClient:false);
-    let [autointegrate, setAutointegrate] = useState(data.organization&&data.organization.autointegrate!==null?data.organization.autointegrate:false);
+    let [autoIntegrate, setAutoIntegrate] = useState(data.organization&&data.organization.autoIntegrate!==null?data.organization.autoIntegrate:false);
     let [autoAcceptAgent, setAutoAcceptAgent] = useState(data.organization&&data.organization.autoAcceptAgent!==null?data.organization.autoAcceptAgent:false);
     let [autoAcceptNight, setAutoAcceptNight] = useState(data.organization&&data.organization.autoAcceptNight!==null?data.organization.autoAcceptNight:false);
     let [dateDelivery, setDateDelivery] = useState(data.organization&&data.organization.dateDelivery!==null?data.organization.dateDelivery:false);
@@ -268,8 +268,8 @@ const Organization = React.memo((props) => {
                                             <FormControlLabel
                                                 control={
                                                     <Switch
-                                                        checked={autointegrate}
-                                                        onChange={()=>{setAutointegrate(!autointegrate)}}
+                                                        checked={autoIntegrate}
+                                                        onChange={()=>{setAutoIntegrate(!autoIntegrate)}}
                                                         color='primary'
                                                         inputProps={{ 'aria-label': 'primary checkbox' }}
                                                     />
@@ -503,7 +503,7 @@ const Organization = React.memo((props) => {
                                                                 superagent: superagent,
                                                                 onlyIntegrate: onlyIntegrate,
                                                                 addedClient: addedClient,
-                                                                autointegrate,
+                                                                autoIntegrate,
                                                                 autoAcceptAgent: autoAcceptAgent,
                                                                 autoAcceptNight: autoAcceptNight,
                                                                 dateDelivery,
@@ -545,7 +545,7 @@ const Organization = React.memo((props) => {
                                                     if(superagent!==data.organization.superagent)editElement.superagent = superagent
                                                     if(onlyIntegrate!==data.organization.onlyIntegrate)editElement.onlyIntegrate = onlyIntegrate
                                                     if(addedClient!==data.organization.addedClient)editElement.addedClient = addedClient
-                                                    if(autointegrate!==data.organization.autointegrate)editElement.autointegrate = autointegrate
+                                                    if(autoIntegrate!==data.organization.autoIntegrate)editElement.autoIntegrate = autoIntegrate
                                                     if(autoAcceptAgent!==data.organization.autoAcceptAgent)editElement.autoAcceptAgent = autoAcceptAgent
                                                     if(autoAcceptNight!==data.organization.autoAcceptNight)editElement.autoAcceptNight = autoAcceptNight
                                                     if(dateDelivery!==data.organization.dateDelivery)editElement.dateDelivery = dateDelivery
@@ -697,7 +697,7 @@ Organization.getInitialProps = async function(ctx) {
             Router.push('/contact')
     return {
         data: {
-            ...ctx.query.id!=='new'?await getOrganization({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined):{organization:{name: '',image: '/static/add.png',address: [],email: [],phone: [],info: '',miniInfo: '',priotiry: 0,minimumOrder: 0,consignation: false,accessToClient: false, onlyDistrict: false, onlyIntegrate: false, addedClient: false, autointegrate: false, autoAcceptNight: false, autoAcceptAgent: false, dateDelivery: false, warehouse: ''}}
+            ...ctx.query.id!=='new'?await getOrganization({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined):{organization:{name: '',image: '/static/add.png',address: [],email: [],phone: [],info: '',miniInfo: '',priotiry: 0,minimumOrder: 0,consignation: false,accessToClient: false, onlyDistrict: false, onlyIntegrate: false, addedClient: false, autoIntegrate: false, autoAcceptNight: false, autoAcceptAgent: false, dateDelivery: false, warehouse: ''}}
         }
 
     };

@@ -205,9 +205,6 @@ const AddOrder =  React.memo(
                         setMainSelectedOrders([...selectedOrders, ...mainSelectedOrders])
                         showFullDialog(false)
                     }}>Сохранить</MenuItem>
-                    <MenuItem onClick={async()=>{
-                        showFullDialog(false)
-                    }}>Закрыть</MenuItem>
                 </Menu>
             </div>
         );

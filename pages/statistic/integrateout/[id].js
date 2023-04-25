@@ -158,7 +158,7 @@ const IntegrateOutShoro = React.memo((props) => {
                     setType('Возвраты')
                     close()
                 }}>Возвраты</MenuItem>
-                <MenuItem onClick={async()=>{
+                <MenuItem style={{color: 'red'}} onClick={async()=>{
                     const action = async() => {
                         type==='Возвраты'?await deleteOutXMLReturnedShoroAll(router.query.id):await deleteOutXMLShoroAll(router.query.id)
                         setList([])
@@ -169,9 +169,6 @@ const IntegrateOutShoro = React.memo((props) => {
                     await getList()
                     close()
                 }}>Удалить все</MenuItem>
-                <MenuItem onClick={async()=>{
-                    close()
-                }}>Закрыть</MenuItem>
             </Menu>
         </App>
     )
