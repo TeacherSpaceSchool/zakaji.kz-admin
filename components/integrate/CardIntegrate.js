@@ -27,8 +27,8 @@ const CardIntegrate = React.memo((props) => {
     let handleGuid =  (event) => {
         setGuid(event.target.value)
     };
-    const cities = ['Бишкек', 'Кара-Балта', 'Токмок', 'Кочкор', 'Нарын', 'Боконбаева', 'Каракол', 'Чолпон-Ата', 'Балыкчы', 'Казарман', 'Талас', 'Жалал-Абад', 'Ош', 'Москва']
-    let [city, setCity] = useState(element&&element.item?element.item.city:'Бишкек');
+    const cities = ['Алматы']
+    let [city, setCity] = useState(element&&element.item?element.item.city:'Алматы');
     let handleCity =  (event) => {
         setItem({})
         setCity(event.target.value)
@@ -77,7 +77,7 @@ const CardIntegrate = React.memo((props) => {
         if(event.target.value!=='товар')
             setItemsByCity([])
         else
-            handleCity({target: {value: 'Бишкек'}})
+            handleCity({target: {value: 'Алматы'}})
     };
     const { setMiniDialog, showMiniDialog } = props.mini_dialogActions;
     return (

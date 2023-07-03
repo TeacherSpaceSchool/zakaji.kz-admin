@@ -73,8 +73,8 @@ const Client = React.memo((props) => {
     if(data.client.address.length>0&&!Array.isArray(data.client.address[0])) data.client.address.map((addres)=>[addres])
 
     let [address, setAddress] = useState(data.client&&data.client.address&&data.client.address.length>0?data.client.address:[['']]);
-    const cities = ['Бишкек', 'Кара-Балта', 'Токмок', 'Кочкор', 'Нарын', 'Боконбаева', 'Каракол', 'Чолпон-Ата', 'Балыкчы', 'Казарман', 'Талас', 'Жалал-Абад', 'Ош', 'Москва']
-    let [city, setCity] = useState(data.client&&data.client.city?data.client.city:'Бишкек');
+    const cities = ['Алматы']
+    let [city, setCity] = useState(data.client&&data.client.city?data.client.city:'Алматы');
     let handleCity =  (event) => {
         setCity(event.target.value)
     };

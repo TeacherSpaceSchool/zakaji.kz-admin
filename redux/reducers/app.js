@@ -10,7 +10,7 @@ const initialState = {
     load: false,
     countBasket: 0,
     date: '',
-    city: 'Бишкек',
+    city: 'Алматы',
     agent: undefined,
     organization: undefined,
 }

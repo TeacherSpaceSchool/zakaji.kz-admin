@@ -19,7 +19,7 @@ const SetCities =  React.memo(
         const { showMiniDialog } = props.mini_dialogActions;
         const { setCity } = props.appActions;
         const width = isMobileApp? (window.innerWidth-112) : 500
-        const _cities = cities?cities:['Бишкек', 'Кара-Балта', 'Токмок', 'Кочкор', 'Нарын', 'Боконбаева', 'Каракол', 'Чолпон-Ата', 'Балыкчы', 'Казарман', 'Талас', 'Жалал-Абад', 'Ош', 'Москва']
+        const _cities = cities?cities:['Алматы']
         return (
             <div className={classes.main}>
                 <Autocomplete

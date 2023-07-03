@@ -45,8 +45,8 @@ const Item = React.memo((props) => {
     let [subCategory, setSubCategory] = useState(data.item?data.item.subCategory:{});
     let [subBrand, setSubBrand] = useState(data.item&&data.item.subBrand?data.item.subBrand:{});
     let [subBrands, setSubBrands] = useState([]);
-    const cities = ['Бишкек', 'Кара-Балта', 'Токмок', 'Кочкор', 'Нарын', 'Боконбаева', 'Каракол', 'Чолпон-Ата', 'Балыкчы', 'Казарман', 'Талас', 'Жалал-Абад', 'Ош', 'Москва']
-    let [city, setCity] = useState(data.item&&data.item.city?data.item.city:'Бишкек');
+    const cities = ['Алматы']
+    let [city, setCity] = useState(data.item&&data.item.city?data.item.city:'Алматы');
     let handleCity =  (event) => {
         setCity(event.target.value)
     };

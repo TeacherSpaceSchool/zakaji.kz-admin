@@ -129,7 +129,7 @@ UnloadingInvoices.getInitialProps = async function(ctx) {
             Router.push('/contact')
     return {
         data:
-            await getActiveOrganization('Бишкек', ctx.req ? await getClientGqlSsr(ctx.req) : undefined),
+            await getActiveOrganization('Алматы', ctx.req ? await getClientGqlSsr(ctx.req) : undefined),
     }
 };
 
