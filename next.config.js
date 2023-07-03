@@ -35,7 +35,7 @@ module.exports =
                             }
                         ]
                     },
-                    ...(process.env.URL==='azyk.store'?{
+                    ...(process.env.URL!=='localhost'?{
                         onDemandEntries : {
                             maxInactiveAge :  1000*60*60*24*10,
                             pagesBufferLength: 2,

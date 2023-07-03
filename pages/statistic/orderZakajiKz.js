@@ -11,14 +11,14 @@ import initialApp from '../../src/initialApp'
 import Table from '../../components/app/Table'
 import { getClientGqlSsr } from '../../src/getClientGQL'
 import { pdDatePicker } from '../../src/lib'
-import { getStatisticAzykStoreOrder, getSuperagentOrganization } from '../../src/gql/statistic'
+import { getStatisticZakajiKzOrder, getSuperagentOrganization } from '../../src/gql/statistic'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../redux/actions/app'
 
-const AzykStoreStatistic = React.memo((props) => {
+const ZakajiKzStatistic = React.memo((props) => {
 
     const classes = pageListStyle();
     const { data } = props;
@@ -34,13 +34,13 @@ const AzykStoreStatistic = React.memo((props) => {
     useEffect(()=>{
         (async()=>{
             await showLoad(true)
-            setStatisticOrder((await getStatisticAzykStoreOrder({
+            setStatisticOrder((await getStatisticZakajiKzOrder({
                 ...organization?{company: organization._id}:{},
                 dateStart: dateStart ? dateStart : null,
                 dateType: dateType,
                 filter: filter,
                 city: city
-            })).statisticAzykStoreOrder)
+            })).statisticZakajiKzOrder)
             await showLoad(false)
         })()
     },[organization, dateStart, dateType, filter, superagentOrganization])
@@ -65,16 +65,16 @@ const AzykStoreStatistic = React.memo((props) => {
         })()
     },[city])
     return (
-        <App cityShow pageName='Статистика заказов AZYK.STORE' filters={filters}>
+        <App cityShow pageName='Статистика заказов ZAKAJI.KZ' filters={filters}>
             <Head>
-                <title>Статистика заказов AZYK.STORE</title>
+                <title>Статистика заказов ZAKAJI.KZ</title>
                 <meta name='description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
-                <meta property='og:title' content='Статистика заказов AZYK.STORE' />
+                <meta property='og:title' content='Статистика заказов ZAKAJI.KZ' />
                 <meta property='og:description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
                 <meta property='og:type' content='website' />
                 <meta property='og:image' content={`${urlMain}/static/512x512.png`} />
-                <meta property='og:url' content={`${urlMain}/statistic/orderAzykStore`} />
-                <link rel='canonical' href={`${urlMain}/statistic/orderAzykStore`}/>
+                <meta property='og:url' content={`${urlMain}/statistic/orderZakajiKz`} />
+                <link rel='canonical' href={`${urlMain}/statistic/orderZakajiKz`}/>
             </Head>
             <Card className={classes.page}>
                 <CardContent className={classes.column} style={isMobileApp?{}:{justifyContent: 'start', alignItems: 'flex-start'}}>
@@ -152,7 +152,7 @@ const AzykStoreStatistic = React.memo((props) => {
     )
 })
 
-AzykStoreStatistic.getInitialProps = async function(ctx) {
+ZakajiKzStatistic.getInitialProps = async function(ctx) {
     await initialApp(ctx)
     ctx.store.getState().app.filter = 'организация'
     if(!['admin'].includes(ctx.store.getState().user.profile.role))
@@ -189,4 +189,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AzykStoreStatistic);
+export default connect(mapStateToProps, mapDispatchToProps)(ZakajiKzStatistic);

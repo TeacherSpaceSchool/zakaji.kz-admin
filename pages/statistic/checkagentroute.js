@@ -38,7 +38,7 @@ const CheckAgentRoute = React.memo((props) => {
                 setOrganization(undefined)
                 setAgentRoutes([])
                 setAgentRoute({_id: undefined})
-                setActiveOrganization([{name: 'AZYK.STORE', _id: 'super'},
+                setActiveOrganization([{name: 'ZAKAJI.KZ', _id: 'super'},
                     ...(await getActiveOrganization(city)).activeOrganization])
                 await showLoad(false)
             }
@@ -149,7 +149,7 @@ CheckAgentRoute.getInitialProps = async function(ctx) {
     return {
         data:
             {
-                activeOrganization: [{name: 'AZYK.STORE', _id: 'super'}, ...(await getActiveOrganization(ctx.store.getState().app.city, ctx.req?await getClientGqlSsr(ctx.req):undefined)).activeOrganization]
+                activeOrganization: [{name: 'ZAKAJI.KZ', _id: 'super'}, ...(await getActiveOrganization(ctx.store.getState().app.city, ctx.req?await getClientGqlSsr(ctx.req):undefined)).activeOrganization]
             }
     }
 };

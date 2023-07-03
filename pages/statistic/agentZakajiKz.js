@@ -11,7 +11,7 @@ import initialApp from '../../src/initialApp'
 import Table from '../../components/app/Table'
 import { getClientGqlSsr } from '../../src/getClientGQL'
 import { pdDatePicker } from '../../src/lib'
-import { getStatisticAzykStoreAgent } from '../../src/gql/statistic'
+import { getStatisticZakajiKzAgent } from '../../src/gql/statistic'
 import { getAgents } from '../../src/gql/employment'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -19,7 +19,7 @@ import Button from '@material-ui/core/Button';
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../redux/actions/app'
 
-const AzykStoreStatistic = React.memo((props) => {
+const ZakajiKzStatistic = React.memo((props) => {
 
     const classes = pageListStyle();
     const { data } = props;
@@ -34,11 +34,11 @@ const AzykStoreStatistic = React.memo((props) => {
         (async()=>{
             if(agent) {
                 await showLoad(true)
-                setStatisticOrder((await getStatisticAzykStoreAgent({
+                setStatisticOrder((await getStatisticZakajiKzAgent({
                     agent: agent._id,
                     dateStart: dateStart ? dateStart : null,
                     dateType: dateType,
-                })).statisticAzykStoreAgent)
+                })).statisticZakajiKzAgent)
                 await showLoad(false)
             }
         })()
@@ -50,16 +50,16 @@ const AzykStoreStatistic = React.memo((props) => {
         }
     },[process.browser])
     return (
-        <App pageName='Статистика агента AZYK.STORE'>
+        <App pageName='Статистика агента ZAKAJI.KZ'>
             <Head>
-                <title>Статистика агента AZYK.STORE</title>
+                <title>Статистика агента ZAKAJI.KZ</title>
                 <meta name='description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
-                <meta property='og:title' content='Статистика агента AZYK.STORE' />
+                <meta property='og:title' content='Статистика агента ZAKAJI.KZ' />
                 <meta property='og:description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
                 <meta property='og:type' content='website' />
                 <meta property='og:image' content={`${urlMain}/static/512x512.png`} />
-                <meta property='og:url' content={`${urlMain}/statistic/agentAzykStore`} />
-                <link rel='canonical' href={`${urlMain}/statistic/agentAzykStore`}/>
+                <meta property='og:url' content={`${urlMain}/statistic/agentZakajiKz`} />
+                <link rel='canonical' href={`${urlMain}/statistic/agentZakajiKz`}/>
             </Head>
             <Card className={classes.page}>
                 <CardContent className={classes.column} style={isMobileApp?{}:{justifyContent: 'start', alignItems: 'flex-start'}}>
@@ -137,7 +137,7 @@ const AzykStoreStatistic = React.memo((props) => {
     )
 })
 
-AzykStoreStatistic.getInitialProps = async function(ctx) {
+ZakajiKzStatistic.getInitialProps = async function(ctx) {
     await initialApp(ctx)
     if(!['admin'].includes(ctx.store.getState().user.profile.role))
         if(ctx.res) {
@@ -173,4 +173,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AzykStoreStatistic);
+export default connect(mapStateToProps, mapDispatchToProps)(ZakajiKzStatistic);

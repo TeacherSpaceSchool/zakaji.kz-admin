@@ -150,11 +150,11 @@ const IntegrateOutShoro = React.memo((props) => {
                     horizontal: 'left',
                 }}
             >
-                <MenuItem style={{background: type==='Заказы'?'rgba(255, 179, 0, 0.15)': '#fff'}} onClick={async()=>{
+                <MenuItem style={{background: type==='Заказы'?'rgba(0, 76, 63, 0.15)': '#fff'}} onClick={async()=>{
                     setType('Заказы')
                     close()
                 }}>Заказы</MenuItem>
-                <MenuItem style={{background: type==='Возвраты'?'rgba(255, 179, 0, 0.15)': '#fff'}} onClick={async()=>{
+                <MenuItem style={{background: type==='Возвраты'?'rgba(0, 76, 63, 0.15)': '#fff'}} onClick={async()=>{
                     setType('Возвраты')
                     close()
                 }}>Возвраты</MenuItem>
