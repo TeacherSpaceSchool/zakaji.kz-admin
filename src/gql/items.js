@@ -28,6 +28,7 @@ export const getBrandOrganizations = async({search, filter, city}, client)=>{
                           }
                     }`,
             })
+        console.log(new SingletonStore().getStore().getState().user.profile)
         if(new SingletonStore().getStore()&&new SingletonStore().getStore().getState().user.profile.role.includes('агент'))
             await putReceiveDataByIndex(`brandOrganizations(search: ${search}, filter: ${filter})`, res.data)
         return res.data
