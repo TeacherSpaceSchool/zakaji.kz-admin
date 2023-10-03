@@ -145,9 +145,9 @@ const Client = React.memo((props) => {
                                             />
                                         {phone?phone.map((element, idx)=>
                                                 <FormControl key={`phone${idx}`} className={classes.input}>
-                                                    <InputLabel>Телефон. Формат: +996555780861</InputLabel>
+                                                    <InputLabel>Телефон. Форматы: +77073912454, +996555780861</InputLabel>
                                                     <Input
-                                                        placeholder='Телефон. Формат: +996555780861'
+                                                        placeholder='Телефон. Форматы: +77073912454, +996555780861'
                                                         value={element}
                                                         className={classes.input}
                                                         onChange={(event)=>{editPhone(event, idx)}}

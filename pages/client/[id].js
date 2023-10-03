@@ -41,9 +41,9 @@ const Client = React.memo((props) => {
     let [status, setStatus] = useState(data.client&&data.client.user?data.client.user.status:'');
     let [name, setName] = useState(data.client&&data.client.name?data.client.name:'');
     let [email, setEmail] = useState(data.client&&data.client.email?data.client.email:'');
-    let [phone, setPhone] = useState(data.client&&data.client.phone&&data.client.phone.length>0?data.client.phone:['+996']);
+    let [phone, setPhone] = useState(data.client&&data.client.phone&&data.client.phone.length>0?data.client.phone:['+7']);
     let addPhone = ()=>{
-        phone = [...phone, '+996']
+        phone = [...phone, '+7']
         setPhone(phone)
     };
     let editPhone = (event, idx)=>{
@@ -264,9 +264,9 @@ const Client = React.memo((props) => {
                                     {phone?phone.map((element, idx)=>
                                         <div key={`phone${idx}`}>
                                             <FormControl className={classes.input}>
-                                                <InputLabel color={validPhone(element)?'primary':'secondary'}>Телефон. Формат: +996555780861</InputLabel>
+                                                <InputLabel color={validPhone(element)?'primary':'secondary'}>Телефон. Форматы: +77073912454, +996555780861</InputLabel>
                                                 <Input
-                                                    placeholder='Телефон. Формат: +996555780861'
+                                                    placeholder='Телефон. Форматы: +77073912454, +996555780861'
                                                     value={element}
                                                     className={classes.input}
                                                     onChange={(event)=>{editPhone(event, idx)}}

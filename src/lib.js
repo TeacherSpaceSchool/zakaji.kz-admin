@@ -168,5 +168,5 @@ export const validMail = (mail) =>
 }
 export const validPhone = (phone) =>
 {
-    return /^[+]{1}996[0-9]{9}$/.test(phone);
+    return /^[+]{1}(7|996)[0-9]{9,10}$/.test(phone);
 }
