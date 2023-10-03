@@ -49,6 +49,7 @@ const CardSubBrand = React.memo((props) => {
         setCities(event.target.value)
     };
     let [priotiry, setPriotiry] = useState(element?element.priotiry:0);
+    let [minimumOrder, setMinimumOrder] = useState(element?element.minimumOrder:0);
     let [organization, setOrganization] = useState(element?element.organization:{});
     let handleOrganization =  (event) => {
         setOrganization({_id: event.target.value, name: event.target.name})
@@ -57,151 +58,166 @@ const CardSubBrand = React.memo((props) => {
     const { showSnackBar } = props.snackbarActions;
     return (
         <Card className={isMobileApp?classes.cardM:classes.cardD}>
-                        <CardActionArea>
-                        <CardContent>
-                            <div className={classes.line}>
-                                <label htmlFor={element?element._id:'add'}>
-                                    <img
-                                        className={classes.media}
-                                        src={preview}
-                                        alt={'Изменить'}
-                                    />
-                                </label>
-                               <TextField
-                                   label='Имя'
-                                   value={name}
-                                   className={isMobileApp?classes.inputM:classes.inputD}
-                                   onChange={handleName}
-                                   inputProps={{
-                                       'aria-label': 'description',
-                                   }}
-                               />
-                            </div>
-                            <br/>
-                            <TextField
-                                label='Описание'
-                                value={miniInfo}
-                                className={isMobileApp?classes.inputM:classes.input}
-                                onChange={handleMiniInfo}
-                                inputProps={{
-                                    'aria-label': 'description',
-                                }}
+            <CardActionArea>
+                <CardContent>
+                    <div className={classes.line}>
+                        <label htmlFor={element?element._id:'add'}>
+                            <img
+                                className={classes.media}
+                                src={preview}
+                                alt={'Изменить'}
                             />
-                            <br/>
-                            {!element?
-                                <FormControl className={isMobileApp?classes.inputM:classes.input}>
-                                    <InputLabel>Организация</InputLabel>
-                                    <Select value={organization._id} onChange={handleOrganization}>
-                                        {organizations.map((element)=>
-                                            <MenuItem key={element._id} value={element._id} ola={element.name}>{element.name}</MenuItem>
-                                        )}
-                                    </Select>
-                                </FormControl>
-                                :
-                                <TextField
-                                    label='Организация'
-                                    value={organization.name}
-                                    className={isMobileApp?classes.inputM:classes.input}
-                                    inputProps={{
-                                        'aria-label': 'description',
-                                        readOnly: true,
-                                    }}
-                                />
-                            }
-                            <br/>
-                            <FormControl className={isMobileApp?classes.inputM:classes.input} variant='outlined'>
-                                <InputLabel>Город</InputLabel>
-                                <Select
-                                    multiple
-                                    value={cities}
-                                    onChange={handleCities}
-                                    input={<Input />}
-                                    MenuProps={{
-                                        PaperProps: {
-                                            style: {
-                                                maxHeight: 226,
-                                                width: 250,
-                                            },
-                                        }
-                                    }}
-                                >
-                                    {_cities.map((city) => (
-                                        <MenuItem key={city} value={city}>
-                                            {city}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <br/>
-                            <TextField
-                                type={ isMobileApp?'number':'text'}
-                                label='Приоритет'
-                                value={priotiry}
-                                className={isMobileApp?classes.inputM:classes.input}
-                                onChange={(event)=>{
-                                    setPriotiry(checkInt(event.target.value))}
+                        </label>
+                        <TextField
+                            label='Имя'
+                            value={name}
+                            className={isMobileApp?classes.inputM:classes.inputD}
+                            onChange={handleName}
+                            inputProps={{
+                                'aria-label': 'description',
+                            }}
+                        />
+                    </div>
+                    <br/>
+                    <TextField
+                        label='Описание'
+                        value={miniInfo}
+                        className={isMobileApp?classes.inputM:classes.input}
+                        onChange={handleMiniInfo}
+                        inputProps={{
+                            'aria-label': 'description',
+                        }}
+                    />
+                    <br/>
+                    {!element?
+                        <FormControl className={isMobileApp?classes.inputM:classes.input}>
+                            <InputLabel>Организация</InputLabel>
+                            <Select value={organization._id} onChange={handleOrganization}>
+                                {organizations.map((element)=>
+                                    <MenuItem key={element._id} value={element._id} ola={element.name}>{element.name}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                        :
+                        <TextField
+                            label='Организация'
+                            value={organization.name}
+                            className={isMobileApp?classes.inputM:classes.input}
+                            inputProps={{
+                                'aria-label': 'description',
+                                readOnly: true,
+                            }}
+                        />
+                    }
+                    <br/>
+                    <FormControl className={isMobileApp?classes.inputM:classes.input} variant='outlined'>
+                        <InputLabel>Город</InputLabel>
+                        <Select
+                            multiple
+                            value={cities}
+                            onChange={handleCities}
+                            input={<Input />}
+                            MenuProps={{
+                                PaperProps: {
+                                    style: {
+                                        maxHeight: 226,
+                                        width: 250,
+                                    },
                                 }
-                                inputProps={{
-                                    'aria-label': 'description',
-                                }}
-                            />
-                        </CardContent>
-                    </CardActionArea>
-                        <CardActions>
-                            {
-                                element!==undefined?
-                                <>
-                                <Button onClick={async()=>{
-                                    if(cities.length) {
-                                        let editElement = {_id: element._id, cities}
-                                        if (miniInfo.length > 0 && miniInfo !== element.miniInfo) editElement.miniInfo = miniInfo
-                                        if (name.length > 0 && name !== element.name) editElement.name = name
-                                        if (priotiry !== element.priotiry) editElement.priotiry = priotiry
-                                        if (image !== undefined) editElement.image = image
-                                        const action = async () => {
-                                            await setSubBrand(editElement)
-                                        }
-                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                        showMiniDialog(true)
-                                    } else
-                                        showSnackBar('Заполните все поля')
+                            }}
+                        >
+                            {_cities.map((city) => (
+                                <MenuItem key={city} value={city}>
+                                    {city}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <br/>
+                    <TextField
+                        type={ isMobileApp?'number':'text'}
+                        label='Приоритет'
+                        value={priotiry}
+                        className={isMobileApp?classes.inputM:classes.input}
+                        onChange={(event)=>{
+                            setPriotiry(checkInt(event.target.value))}
+                        }
+                        inputProps={{
+                            'aria-label': 'description',
+                        }}
+                    />
+                    <br/>
+                    <TextField
+                        type={ isMobileApp?'number':'text'}
+                        label='Минимальный заказ'
+                        value={minimumOrder}
+                        className={isMobileApp?classes.inputM:classes.input}
+                        onChange={(event)=>{
+                            setMinimumOrder(checkInt(event.target.value))}
+                        }
+                        inputProps={{
+                            'aria-label': 'description',
+                        }}
+                    />
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                {
+                    element!==undefined?
+                        <>
+                            <Button onClick={async()=>{
+                                if(cities.length) {
+                                    let editElement = {_id: element._id, cities}
+                                    if (miniInfo.length > 0 && miniInfo !== element.miniInfo) editElement.miniInfo = miniInfo
+                                    if (name.length > 0 && name !== element.name) editElement.name = name
+                                    if (priotiry !== element.priotiry) editElement.priotiry = priotiry
+                                    if (minimumOrder !== element.minimumOrder) editElement.minimumOrder = minimumOrder
+                                    if (image !== undefined) editElement.image = image
+                                    const action = async () => {
+                                        await setSubBrand(editElement)
+                                    }
+                                    setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                    showMiniDialog(true)
+                                } else
+                                    showSnackBar('Заполните все поля')
 
-                                }} size='small' color='primary'>
-                                    Сохранить
-                                </Button>
-                                    <Button onClick={async()=>{
-                                        const action = async() => {
-                                            await onoffSubBrand([element._id])
-                                            setStatus(status==='active'?'deactive':'active')
-                                        }
-                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                        showMiniDialog(true)
-                                    }} size='small' color={status==='active'?'primary':'secondary'}>
-                                        {status==='active'?'Отключить':'Включить'}
-                                    </Button>
-                                    <Button size='small' color='secondary' onClick={()=>{
-                                        const action = async() => {
-                                            await deleteSubBrand([element._id])
-                                            let _list = [...list]
-                                            _list.splice(idx, 1)
-                                            setList(_list)
-                                        }
-                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                        showMiniDialog(true)
-                                    }}>
-                                        Удалить
-                                    </Button>
+                            }} size='small' color='primary'>
+                                Сохранить
+                            </Button>
+                            <Button onClick={async()=>{
+                                const action = async() => {
+                                    await onoffSubBrand([element._id])
+                                    setStatus(status==='active'?'deactive':'active')
+                                }
+                                setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                showMiniDialog(true)
+                            }} size='small' color={status==='active'?'primary':'secondary'}>
+                                {status==='active'?'Отключить':'Включить'}
+                            </Button>
+                            <Button size='small' color='secondary' onClick={()=>{
+                                const action = async() => {
+                                    await deleteSubBrand([element._id])
+                                    let _list = [...list]
+                                    _list.splice(idx, 1)
+                                    setList(_list)
+                                }
+                                setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                showMiniDialog(true)
+                            }}>
+                                Удалить
+                            </Button>
                         </>:
                         <Button onClick={async()=> {
                             if (image!==undefined&&miniInfo.length&&name.length&&cities.length&&organization._id) {
                                 setImage(undefined)
                                 setPreview('/static/add.png')
                                 setPriotiry(0)
+                                setMinimumOrder(0)
                                 setMiniInfo('')
                                 setName('')
                                 setCities(['Алматы'])
                                 const action = async() => {
-                                    setList([(await addSubBrand({image, miniInfo, name, priotiry, organization: organization._id, cities})).addSubBrand, ...list])
+                                    setList([(await addSubBrand({image, miniInfo, name, minimumOrder, priotiry, organization: organization._id, cities})).addSubBrand, ...list])
                                 }
                                 setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
                                 showMiniDialog(true)
@@ -212,15 +228,15 @@ const CardSubBrand = React.memo((props) => {
                         } size='small' color='primary'>
                             Добавить
                         </Button>}
-                        </CardActions>
-                        <input
-                            accept='image/*'
-                            style={{ display: 'none' }}
-                            id={element?element._id:'add'}
-                            type='file'
-                            onChange={handleChangeImage}
-                        />
-                    </Card>
+            </CardActions>
+            <input
+                accept='image/*'
+                style={{ display: 'none' }}
+                id={element?element._id:'add'}
+                type='file'
+                onChange={handleChangeImage}
+            />
+        </Card>
     );
 })
 

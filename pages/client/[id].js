@@ -47,16 +47,18 @@ const Client = React.memo((props) => {
         setPhone(phone)
     };
     let editPhone = (event, idx)=>{
-        phone[idx] = event.target.value
-        while(phone[idx].includes(' '))
-            phone[idx] = phone[idx].replace(' ', '')
-        while(phone[idx].includes('-'))
-            phone[idx] = phone[idx].replace('-', '')
-        while(phone[idx].includes(')'))
-            phone[idx] = phone[idx].replace(')', '')
-        while(phone[idx].includes('('))
-            phone[idx] = phone[idx].replace('(', '')
-        setPhone([...phone])
+        if(event.target.value.length<14) {
+            phone[idx] = event.target.value
+            while (phone[idx].includes(' '))
+                phone[idx] = phone[idx].replace(' ', '')
+            while (phone[idx].includes('-'))
+                phone[idx] = phone[idx].replace('-', '')
+            while (phone[idx].includes(')'))
+                phone[idx] = phone[idx].replace(')', '')
+            while (phone[idx].includes('('))
+                phone[idx] = phone[idx].replace('(', '')
+            setPhone([...phone])
+        }
     };
     let deletePhone = (idx)=>{
         phone.splice(idx, 1);
@@ -132,7 +134,7 @@ const Client = React.memo((props) => {
                 <CardContent className={isMobileApp?classes.column:classes.row} style={isMobileApp?{}:{justifyContent: 'start', alignItems: 'flex-start'}}>
                     {data.client?
                         ['admin', 'суперагент', 'суперорганизация', 'организация', 'агент', 'экспедитор'].includes(profile.role)/*||(data.client.user&&profile._id===data.client.user._id)*/?
-                                <>
+                            <>
                                 <div className={classes.column}>
                                     <label htmlFor='contained-button-file'>
                                         <img
@@ -245,7 +247,7 @@ const Client = React.memo((props) => {
                                                         }}
                                                     />
                                                 </FormControl>
-                                                <div className={classes.geo} style={{color: element[1]?'#004C3F':'red'}} onClick={()=>{
+                                                <div className={classes.geo} style={{color: element[1]?'#ffb300':'red'}} onClick={()=>{
                                                     setFullDialog('Геолокация', <Geo change={true} geo={element[1]} setAddressGeo={setAddressGeo} idx={idx}/>)
                                                     showFullDialog(true)
                                                 }}>
@@ -317,65 +319,79 @@ const Client = React.memo((props) => {
                                         {
                                             (router.query.id!=='new'&&['суперорганизация', 'организация', 'агент', 'экспедитор', 'admin', 'суперагент'].includes(profile.role))/*||(data.client.user&&profile._id===data.client.user._id)*/?
                                                 <>
-                                                <Button onClick={async()=>{
-                                                    if(name.length>0&&address.length>0&&address[0].length>0&&address[0][0]&&address[0][0].length>0&&address[0][2]&&address[0][2].length>0&&phone.length>0&&phone[0].length>0) {
-                                                        let editElement = {_id: data.client._id}
-                                                        if (image) editElement.image = image
-                                                        if (name && name.length > 0 && name !== data.client.name) editElement.name = name
-                                                        if (category && category !== data.client.category) editElement.category = category
-                                                        editElement.address = address
-                                                        if (email && email.length > 0 && email !== data.client.email) editElement.email = email
-                                                        if (login && login.length > 0 && data.client.user.login !== login) editElement.login = login
-                                                        editElement.phone = phone
-                                                        if (info && info.length > 0 && info !== data.client.info) editElement.info = info
-                                                        if (city && city.length > 0 && city !== data.client.city) editElement.city = city
-                                                        if (newPass && newPass.length > 0) editElement.newPass = newPass
-                                                       const action = async () => {
-                                                            await setClient(editElement)
+                                                    <Button onClick={async()=>{
+                                                        let checkPhone = phone.length
+                                                        if(checkPhone) {
+                                                            checkPhone = true
+                                                            for(let i=0; i<phone.length; i++){
+                                                                checkPhone = validPhone(phone[i])
+                                                            }
                                                         }
-                                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                                        showMiniDialog(true)
-                                                    }
-                                                    else {
-                                                        showSnackBar('Заполните поля: имя, город, адрес и телефон')
-                                                    }
-                                                }} size='small' color='primary'>
-                                                    Сохранить
-                                                </Button>
-                                                {
-                                                    profile.role==='admin' ?
-                                                        <Button onClick={async()=>{
-                                                            const action = async() => {
-                                                                await deleteClient([data.client._id])
-                                                                Router.push('/clients')
+                                                        if(name.length>0&&address.length>0&&address[0].length>0&&address[0][0]&&address[0][0].length>0&&address[0][2]&&address[0][2].length>0&&phone.length>0&&checkPhone) {
+                                                            let editElement = {_id: data.client._id}
+                                                            if (image) editElement.image = image
+                                                            if (name && name.length > 0 && name !== data.client.name) editElement.name = name
+                                                            if (category && category !== data.client.category) editElement.category = category
+                                                            editElement.address = address
+                                                            if (email && email.length > 0 && email !== data.client.email) editElement.email = email
+                                                            if (login && login.length > 0 && data.client.user.login !== login) editElement.login = login
+                                                            editElement.phone = phone
+                                                            if (info && info.length > 0 && info !== data.client.info) editElement.info = info
+                                                            if (city && city.length > 0 && city !== data.client.city) editElement.city = city
+                                                            if (newPass && newPass.length > 0) editElement.newPass = newPass
+                                                            const action = async () => {
+                                                                await setClient(editElement)
                                                             }
                                                             setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
                                                             showMiniDialog(true)
-                                                        }} size='small' color='secondary'>
-                                                            Удалить
+                                                        }
+                                                        else {
+                                                            showSnackBar('Заполните поля: имя, город, адрес и телефон')
+                                                        }
+                                                    }} size='small' color='primary'>
+                                                        Сохранить
+                                                    </Button>
+                                                    {
+                                                        profile.role==='admin' ?
+                                                            <Button onClick={async()=>{
+                                                                const action = async() => {
+                                                                    await deleteClient([data.client._id])
+                                                                    Router.push('/clients')
+                                                                }
+                                                                setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                                                showMiniDialog(true)
+                                                            }} size='small' color='secondary'>
+                                                                Удалить
+                                                            </Button>
+                                                            :
+                                                            null
+                                                    }
+                                                    {['агент','суперорганизация', 'организация', 'admin', 'суперагент'].includes(profile.role)?
+                                                        <Button onClick={async()=>{
+                                                            const action = async() => {
+                                                                await onoffClient([data.client._id])
+                                                                setStatus(status==='active'?'deactive':'active')
+                                                            }
+                                                            setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                                            showMiniDialog(true)
+                                                        }} size='small' color={status==='active'?'primary':'secondary'}>
+                                                            {status==='active'?'Отключить':'Включить'}
                                                         </Button>
                                                         :
                                                         null
-                                                }
-                                                {['агент','суперорганизация', 'организация', 'admin', 'суперагент'].includes(profile.role)?
-                                                    <Button onClick={async()=>{
-                                                        const action = async() => {
-                                                            await onoffClient([data.client._id])
-                                                            setStatus(status==='active'?'deactive':'active')
-                                                        }
-                                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                                        showMiniDialog(true)
-                                                    }} size='small' color={status==='active'?'primary':'secondary'}>
-                                                        {status==='active'?'Отключить':'Включить'}
-                                                    </Button>
-                                                    :
-                                                        null
-                                                }
+                                                    }
                                                 </>
                                                 :
                                                 router.query.id==='new'&&(profile.role==='admin'||(profile.addedClient&&['суперорганизация', 'организация', 'агент'].includes(profile.role)))?
                                                     <Button onClick={async()=>{
-                                                        if(name.length>0&&login.length>0&&newPass.length>0&&address.length>0&&address[0][0].length>0&&address[0].length>0&&address[0][2].length>0&&city.length>0&&phone.length>0&&phone[0].length>0){
+                                                        let checkPhone = phone.length
+                                                        if(checkPhone) {
+                                                            checkPhone = true
+                                                            for(let i=0; i<phone.length; i++){
+                                                                checkPhone = validPhone(phone[i])
+                                                            }
+                                                        }
+                                                        if(name.length>0&&login.length>0&&newPass.length>0&&address.length>0&&address[0][0].length>0&&address[0].length>0&&address[0][2].length>0&&city.length>0&&phone.length>0&&checkPhone){
                                                             let editElement = {login: login, password: newPass, category: category}
                                                             if(image!==undefined)editElement.image = image
                                                             if(name.length>0)editElement.name = name
@@ -403,9 +419,9 @@ const Client = React.memo((props) => {
                                         }
                                     </div>
                                 </div>
-                                </>
-                                :
-                                <>
+                            </>
+                            :
+                            <>
 
                                 <div className={classes.column}>
                                     <img
@@ -433,22 +449,22 @@ const Client = React.memo((props) => {
                                         <div className={classes.column}>
                                             {address?address.map((element, idx)=>
                                                 <div key={`address${idx}`}>
-                                                <div className={classes.value}>
-                                                    {`${element[2]?`${element[2]}, `:''}${element[0]}`}
-                                                </div>
-                                                <div className={classes.geo} style={{color: element[1]?'#004C3F':'red'}} onClick={()=>{
-                                                    if(element[1]) {
-                                                        setFullDialog('Геолокация', <Geo geo={element[1]}/>)
-                                                        showFullDialog(true)
-                                                    }
-                                                }}>
-                                                    {
-                                                        element[1]?
-                                                            'Посмотреть геолокацию'
-                                                            :
-                                                            'Геолокация не задана'
-                                                    }
-                                                </div>
+                                                    <div className={classes.value}>
+                                                        {`${element[2]?`${element[2]}, `:''}${element[0]}`}
+                                                    </div>
+                                                    <div className={classes.geo} style={{color: element[1]?'#ffb300':'red'}} onClick={()=>{
+                                                        if(element[1]) {
+                                                            setFullDialog('Геолокация', <Geo geo={element[1]}/>)
+                                                            showFullDialog(true)
+                                                        }
+                                                    }}>
+                                                        {
+                                                            element[1]?
+                                                                'Посмотреть геолокацию'
+                                                                :
+                                                                'Геолокация не задана'
+                                                        }
+                                                    </div>
                                                 </div>
                                             ):null}
                                         </div>
@@ -479,12 +495,12 @@ const Client = React.memo((props) => {
                                         {info}
                                     </div>
                                 </div>
-                                </>
-                            :
-                            'Ничего не найдено'
-                            }
-                        </CardContent>
-                </Card>
+                            </>
+                        :
+                        'Ничего не найдено'
+                    }
+                </CardContent>
+            </Card>
             <input
                 accept='image/*'
                 style={{ display: 'none' }}
@@ -500,28 +516,28 @@ Client.getInitialProps = async function(ctx) {
     await initialApp(ctx)
     return {
         data: {...(ctx.query.id==='new'?
-            {
-                client:
-                    {
-                        name: '',
-                        email: '',
-                        phone: [],
-                        address: [],
-                        info: '',
-                        image: '/static/add.png',
-                        reiting: 0,
-                        city: '',
-                        type: '',
-                        birthday: null,
-                        user: null,
-                        patent: null,
-                        passport: null,
-                        certificate: null,
-                        category: 'B'
-                    }
-            }
-        :
-            await getClient({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined))}
+                {
+                    client:
+                        {
+                            name: '',
+                            email: '',
+                            phone: [],
+                            address: [],
+                            info: '',
+                            image: '/static/add.png',
+                            reiting: 0,
+                            city: '',
+                            type: '',
+                            birthday: null,
+                            user: null,
+                            patent: null,
+                            passport: null,
+                            certificate: null,
+                            category: 'B'
+                        }
+                }
+                :
+                await getClient({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined))}
     };
 };
 

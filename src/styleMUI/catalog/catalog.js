@@ -53,6 +53,20 @@ export default makeStyles({
         fontSize: '1.125rem',
         fontFamily: 'Roboto'
     },
+    nameField: {
+        marginBottom: 10,
+        fontWeight: 'bold',
+        fontSize: '0.875rem',
+        fontFamily: 'Roboto',
+        color: '#A0A0A0'
+    },
+    valueField: {
+        marginBottom: 10,
+        fontWeight: '500',
+        fontSize: '0.875rem',
+        fontFamily: 'Roboto',
+        wordBreak: 'break-all'
+    },
     value: {
         marginBottom: 5,
         fontSize: '1rem',
@@ -83,7 +97,7 @@ export default makeStyles({
         fontWeight: 'bold',
         fontSize: '1.125rem',
         fontFamily: 'Roboto',
-        background: '#004C3F',
+        background: '#ffb300',
         marginRight: 15
 
     },
@@ -119,7 +133,7 @@ export default makeStyles({
         fontWeight: 'bold',
         fontSize: '1rem',
         fontFamily: 'Roboto',
-        background: '#004C3F',
+        background: '#ffb300',
         marginRight: 15
 
     },
@@ -183,7 +197,7 @@ export default makeStyles({
         fontFamily: 'Roboto',
         whiteSpace: 'pre-wrap',
         cursor: 'pointer',
-        borderBottom: '1px dashed #004C3F',
+        borderBottom: '1px dashed #ffb300',
         userSelect: 'none',
         width: 140
     },

@@ -99,9 +99,9 @@ const Contact = React.memo((props) => {
         <App filters={data.filterSubCategory} sorts={data.sortSubCategory} pageName='Контакты'>
             <Head>
                 <title>Контакты</title>
-                <meta name='description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
+                <meta name='description' content='' />
                 <meta property='og:title' content='Азык - электронный склад связывающий производителя с торговой точкой' />
-                <meta property='og:description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
+                <meta property='og:description' content='' />
                 <meta property='og:type' content='website' />
                 <meta property='og:image' content={`${urlMain}/static/512x512.png`} />
                 <meta property='og:url' content={`${urlMain}/contact`} />

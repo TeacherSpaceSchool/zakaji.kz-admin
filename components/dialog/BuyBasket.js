@@ -105,12 +105,12 @@ const BuyBasket =  React.memo(
                 {
                     adss&&adss.length>0?
                         <>
-                        <Link href={`/ads/${organization._id}`}>
-                            <div onClick={()=>{showMiniDialog(false)}} className={classes.showAds} style={{width: width}}>
-                                <WhatshotIcon color='inherit'/>&nbsp;Просмотреть акции
-                            </div>
-                        </Link>
-                        <br/>
+                            <Link href={`/ads/${organization._id}`}>
+                                <div onClick={()=>{showMiniDialog(false)}} className={classes.showAds} style={{width: width}}>
+                                    <WhatshotIcon color='inherit'/>&nbsp;Просмотреть акции
+                                </div>
+                            </Link>
+                            <br/>
                         </>
                         :
                         null
@@ -134,17 +134,17 @@ const BuyBasket =  React.memo(
                 {
                     week.length>0?
                         <>
-                        <FormControl style={{width: width}} className={isMobileApp?classes.inputM:classes.inputD}>
-                            <InputLabel>День доставки</InputLabel>
-                            <Select value={dateDelivery} onChange={handleDateDelivery}>
-                                {week.map((element, idx)=>{
-                                    if(dateDeliverys[idx])
-                                        return <MenuItem value={element}>{pdDDMMYYYYWW(element)}</MenuItem>
-                                }
-                                )}
-                            </Select>
-                        </FormControl>
-                        <br/>
+                            <FormControl style={{width: width}} className={isMobileApp?classes.inputM:classes.inputD}>
+                                <InputLabel>День доставки</InputLabel>
+                                <Select value={dateDelivery} onChange={handleDateDelivery}>
+                                    {week.map((element, idx)=>{
+                                            if(dateDeliverys[idx])
+                                                return <MenuItem value={element}>{pdDDMMYYYYWW(element)}</MenuItem>
+                                        }
+                                    )}
+                                </Select>
+                            </FormControl>
+                            <br/>
                         </>
                         :
                         null
@@ -152,23 +152,23 @@ const BuyBasket =  React.memo(
                 {
                     agent?
                         <>
-                        <FormControl style={{width: width}} className={isMobileApp?classes.inputM:classes.inputD}>
-                            <InputLabel>Способ оплаты</InputLabel>
-                            <Select value={paymentMethod} onChange={handlePaymentMethod}>
-                                {paymentMethods.map((element)=>
-                                    <MenuItem key={element} value={element} >{element}</MenuItem>
-                                )}
-                            </Select>
-                        </FormControl>
-                        <br/>
+                            <FormControl style={{width: width}} className={isMobileApp?classes.inputM:classes.inputD}>
+                                <InputLabel>Способ оплаты</InputLabel>
+                                <Select value={paymentMethod} onChange={handlePaymentMethod}>
+                                    {paymentMethods.map((element)=>
+                                        <MenuItem key={element} value={element} >{element}</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
+                            <br/>
                         </>
                         :
                         null
                 }
                 {
-                    !agent&&organization.minimumOrder>0?
+                    !agent&&organization.minimumOrder?
                         <>
-                        <div style={{width: width}} className={classes.itogo}><b>Минимальный заказ:</b>{` ${organization.minimumOrder} сом`}</div>
+                            <div style={{width: width}} className={classes.itogo}><b>Минимальный заказ:</b>{` ${organization.minimumOrder} сом`}</div>
                         </>
                         :null
                 }
@@ -192,52 +192,53 @@ const BuyBasket =  React.memo(
                     <Button variant='contained' color='primary' onClick={async()=>{
                         if(unlock) {
                             if (agent || !organization.minimumOrder === 0 || organization.minimumOrder <= allPrice) {
-                               if (paymentMethod.length > 0) {
-                                   sessionStorage.catalog = '{}'
-                                   if(navigator.onLine){
-                                       if (agent&&geo&&client.address[0][1].includes(', ')) {
-                                           let distance = getGeoDistance(geo.coords.latitude, geo.coords.longitude, ...(client.address[0][1].split(', ')))
-                                           if(distance<1000){
-                                               await addAgentHistoryGeo({client: client._id, geo: `${geo.coords.latitude}, ${geo.coords.longitude}`})
-                                           }
-                                       }
-                                       await addOrders({
-                                           inv: inv,
-                                           priority: priority,
-                                           unite: organization.unite,
-                                           info: coment,
-                                           paymentMethod: paymentMethod,
-                                           organization: organization._id,
-                                           client: client._id,
-                                           dateDelivery: dateDelivery
-                                       })
-                                       Router.push('/orders')
-                                   }
-                                   else if(profile.role.includes('агент')) {
-                                       await putOfflineOrders({
-                                           ...(geo?{geo: {latitude: geo.coords.latitude, longitude: geo.coords.longitude}}:{}),
-                                           inv: inv,
-                                           priority: priority,
-                                           unite: organization.unite,
-                                           info: coment,
-                                           paymentMethod: paymentMethod,
-                                           organization: organization._id,
-                                           client: client._id,
-                                           dateDelivery: dateDelivery,
-                                           basket: basket,
-                                           address: client.address[0],
-                                           name: client.name,
-                                           allPrice: `${allPrice-allPrice/100*discount} сом`
-                                       })
-                                       Router.push('/statistic/offlineorder')
-                                   }
-                                   showMiniDialog(false);
-                                   /*const action = async () => {
-                                   }
-                                   setMiniDialog('Вы уверены?', <Confirmation action={action}/>)*/
-                               }
-                               else
-                                   showSnackBar('Заполните все поля')
+                                if (paymentMethod.length > 0) {
+                                    sessionStorage.catalog = '{}'
+                                    sessionStorage.catalogID = null
+                                    if(navigator.onLine){
+                                        if (agent&&geo&&client.address[0][1].includes(', ')) {
+                                            let distance = getGeoDistance(geo.coords.latitude, geo.coords.longitude, ...(client.address[0][1].split(', ')))
+                                            if(distance<1000){
+                                                await addAgentHistoryGeo({client: client._id, geo: `${geo.coords.latitude}, ${geo.coords.longitude}`})
+                                            }
+                                        }
+                                        await addOrders({
+                                            inv: inv,
+                                            priority: priority,
+                                            unite: organization.unite,
+                                            info: coment,
+                                            paymentMethod: paymentMethod,
+                                            organization: organization._id,
+                                            client: client._id,
+                                            dateDelivery: dateDelivery
+                                        })
+                                        Router.push('/orders')
+                                    }
+                                    else if(profile.role.includes('агент')) {
+                                        await putOfflineOrders({
+                                            ...(geo?{geo: {latitude: geo.coords.latitude, longitude: geo.coords.longitude}}:{}),
+                                            inv: inv,
+                                            priority: priority,
+                                            unite: organization.unite,
+                                            info: coment,
+                                            paymentMethod: paymentMethod,
+                                            organization: organization._id,
+                                            client: client._id,
+                                            dateDelivery: dateDelivery,
+                                            basket: basket,
+                                            address: client.address[0],
+                                            name: client.name,
+                                            allPrice: `${allPrice-allPrice/100*discount} сом`
+                                        })
+                                        Router.push('/statistic/offlineorder')
+                                    }
+                                    showMiniDialog(false);
+                                    /*const action = async () => {
+                                    }
+                                    setMiniDialog('Вы уверены?', <Confirmation action={action}/>)*/
+                                }
+                                else
+                                    showSnackBar('Заполните все поля')
                             }
                             else {
                                 showSnackBar('Сумма заказа должна быть выше минимальной')

@@ -161,15 +161,15 @@ export const getStatisticZakajiKzOrder = async({company, dateStart, dateType, fi
     }
 }
 
-export const getStatisticZakajiKzAgents = async({company, dateStart, dateType, filter, city}, client)=>{
+export const getStatisticUnsyncOrder = async({dateStart, city}, client)=>{
     try{
         client = client? client : new SingletonApolloClient().getClient()
         let res = await client
             .query({
-                variables: {company, dateStart, dateType, filter, city},
+                variables: {dateStart, city},
                 query: gql`
-                    query ($company: ID, $dateStart: Date, $dateType: String, $filter: String, $city: String) {
-                        statisticZakajiKzAgents(company: $company, dateStart: $dateStart, dateType: $dateType, filter: $filter, city: $city) {
+                    query ($dateStart: Date, $city: String) {
+                        statisticUnsyncOrder(dateStart: $dateStart, city: $city) {
                             columns
                             row 
                                 {_id data}
@@ -715,6 +715,43 @@ export const getStatisticClientGeo = async({organization, item, search, city}, c
     }
 }
 
+export const getStatisticZakajiKzAgents = async({company, dateStart, dateType, filter, city}, client)=>{
+    try{
+        client = client? client : new SingletonApolloClient().getClient()
+        let res = await client
+            .query({
+                variables: {company, dateStart, dateType, filter, city},
+                query: gql`
+                    query ($company: ID, $dateStart: Date, $dateType: String, $filter: String, $city: String) {
+                        statisticZakajiKzAgents(company: $company, dateStart: $dateStart, dateType: $dateType, filter: $filter, city: $city) {
+                            columns
+                            row 
+                                {_id data}
+                        }
+                    }`,
+            })
+        return res.data
+    } catch(err){
+        console.error(err)
+    }
+}
+
+export const getStatisticRAM = async(client)=>{
+    try{
+        client = client? client : new SingletonApolloClient().getClient()
+        let res = await client
+            .query({
+                query: gql`
+                    query {
+                        statisticRAM 
+                    }`,
+            })
+        return res.data
+    } catch(err){
+        console.error(err)
+    }
+}
+
 export const getActiveItem = async({organization}, client)=>{
     try{
         client = client? client : new SingletonApolloClient().getClient()
@@ -803,6 +840,24 @@ export const uploadingClients = async({document, organization, city}, client)=>{
                 mutation: gql`
                     mutation ($document: Upload!, $organization: ID!, $city: String!) {
                         uploadingClients(document: $document, organization: $organization, city: $city) {
+                            data
+                        }
+                    }`,
+            })
+        return res.data
+    } catch(err){
+        console.error(err)
+    }
+}
+
+export const repairUnsyncOrder = async(ids)=>{
+    try{
+        let res = await (new SingletonApolloClient().getClient())
+            .mutate({
+                variables: {ids},
+                mutation: gql`
+                    mutation ($ids: [ID]!) {
+                        repairUnsyncOrder(ids: $ids) {
                             data
                         }
                     }`,

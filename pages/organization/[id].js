@@ -144,524 +144,524 @@ const Organization = React.memo((props) => {
                         data.organization!==null?
                             profile.role==='admin'||(['суперорганизация', 'организация'].includes(profile.role)&&profile.organization===data.organization._id)?
                                 <>
-                                <div className={classes.column}>
-                                    <label htmlFor='contained-button-file'>
-                                        <img
-                                            className={classes.media}
-                                            src={preview}
-                                            alt={'Добавить'}
-                                        />
-                                    </label>
-                                    {
-                                        profile.role==='admin'?
-                                            <>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={accessToClient}
-                                                        onChange={()=>{setAccessToClient(!accessToClient)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Доступ к клиентам'
+                                    <div className={classes.column}>
+                                        <label htmlFor='contained-button-file'>
+                                            <img
+                                                className={classes.media}
+                                                src={preview}
+                                                alt={'Добавить'}
                                             />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={consignation}
-                                                        onChange={()=>{setConsignation(!consignation)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Консигнации'
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={onlyDistrict}
-                                                        onChange={()=>{setOnlyDistrict(!onlyDistrict)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Только в районах'
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={unite}
-                                                        onChange={()=>{setUnite(!unite)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Объединять заказы'
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={superagent}
-                                                        onChange={()=>{setSuperagent(!superagent)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Суперагент'
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={onlyIntegrate}
-                                                        onChange={()=>{setOnlyIntegrate(!onlyIntegrate)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Только по интеграции'
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={dateDelivery}
-                                                        onChange={()=>{setDateDelivery(!dateDelivery)}}
-                                                        color="primary"
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Дата доставки'
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={addedClient}
-                                                        onChange={()=>{setAddedClient(!addedClient)}}
-                                                        color='primary'
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Добавлять клиентов'
-                                            />
-                                                <FormControlLabel
-                                                    control={
-                                                        <Switch
-                                                            checked={autoAcceptAgent}
-                                                            onChange={()=>{setAutoAcceptAgent(!autoAcceptAgent)}}
-                                                            color="primary"
-                                                            inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                        />
-                                                    }
-                                                    label='Автоприем заказов агентов'
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                        <Switch
-                                                            checked={autoAcceptNight}
-                                                            onChange={()=>{setAutoAcceptNight(!autoAcceptNight)}}
-                                                            color="primary"
-                                                            inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                        />
-                                                    }
-                                                    label='Автоприем заказов ночью'
-                                                />
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                        checked={autoIntegrate}
-                                                        onChange={()=>{setAutoIntegrate(!autoIntegrate)}}
-                                                        color='primary'
-                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                    />
-                                                }
-                                                label='Автоприем интеграции'
-                                            />
-                                            <br/>
-                                            <div className={classes.geo} style={{color: warehouse&&warehouse.length>0?'#004C3F':'red'}} onClick={()=>{
-                                                setFullDialog('Геолокация', <Geo change={true} geo={warehouse} setAddressGeo={setWarehouse}/>)
-                                                showFullDialog(true)
-                                            }}>
-                                                Склад
-                                            </div>
-                                            <div className={classes.row}>
-                                                {
-                                                    data.organization.catalog?
-                                                        <Button onClick={async()=> {
-                                                            window.open(data.organization.catalog, '_blank');
-                                                        }} size='small' color='primary'>
-                                                            Открыть каталог
-                                                        </Button>
-                                                        :
-                                                        null
-                                                }
-                                                <Button onClick={async()=> {
-                                                    catalogInput.current.click()
-                                                }} size='small' color={catalog?'primary':'secondary'}>
-                                                    Загрузить каталог
-                                                </Button>
-                                            </div>
-                                            </>
-                                            :
-                                            null
-                                    }
-                                </div>
-                                <div>
-                                    <TextField
-                                        label='Имя'
-                                        value={name}
-                                        className={isMobileApp?classes.inputM:classes.inputD}
-                                        onChange={(event)=>{setName(event.target.value)}}
-                                        inputProps={{
-                                            'aria-label': 'description',
-                                        }}
-                                    />
-                                    <FormControl className={isMobileApp?classes.inputM:classes.inputD} variant='outlined'>
-                                        <InputLabel>Город</InputLabel>
-                                        <Select
-                                            multiple
-                                            value={cities}
-                                            onChange={handleCities}
-                                            input={<Input />}
-                                            MenuProps={{
-                                                PaperProps: {
-                                                    style: {
-                                                        maxHeight: 226,
-                                                        width: 250,
-                                                    },
-                                                }
-                                            }}
-                                        >
-                                            {_cities.map((city) => (
-                                                <MenuItem key={city} value={city}>
-                                                    {city}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                    <TextField
-                                        label='Профиль'
-                                        value={miniInfo}
-                                        className={isMobileApp?classes.inputM:classes.inputD}
-                                        onChange={(event)=>{setMiniInfo(event.target.value)}}
-                                        inputProps={{
-                                            'aria-label': 'description',
-                                        }}
-                                    />
-                                    <FormControl className={isMobileApp?classes.inputM:classes.inputD}>
-                                        <InputLabel>Минимальный заказ</InputLabel>
-                                        <Input
-                                            type={ isMobileApp?'number':'text'}
-                                            value={minimumOrder}
-                                            onChange={(event)=>{setMinimumOrder(inputInt(event.target.value))}}
-                                            inputProps={{
-                                                'aria-label': 'description',
-                                            }}
-                                        />
-                                    </FormControl>
-                                    <FormControl className={isMobileApp?classes.inputM:classes.inputD}>
-                                        <InputLabel>Приоритет</InputLabel>
-                                        <Input
-                                            type={ isMobileApp?'number':'text'}
-                                            value={priotiry}
-                                            onChange={(event)=>{setPriotiry(inputInt(event.target.value))}}
-                                            inputProps={{
-                                                'aria-label': 'description',
-                                            }}
-                                        />
-                                    </FormControl>
-                                    <TextField
-                                        label='Интеграция'
-                                        value={pass}
-                                        className={isMobileApp?classes.inputM:classes.inputD}
-                                        onChange={(event)=>{setPass(event.target.value)}}
-                                        inputProps={{
-                                            'aria-label': 'description',
-                                        }}
-                                    />
-                                    {address.map((element, idx)=>
-                                        <FormControl  key={`address${idx}`} className={isMobileApp?classes.inputM:classes.inputD}>
-                                            <InputLabel>Адрес{idx+1}</InputLabel>
-                                            <Input
-                                                placeholder='Адрес'
-                                                value={element}
-                                                onChange={(event)=>{editAddress(event, idx)}}
-                                                inputProps={{
-                                                    'aria-label': 'description',
-                                                }}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={()=>{
-                                                                deleteAddress(idx)
-                                                            }}
-                                                            aria-label='toggle password visibility'
-                                                        >
-                                                            <Remove/>
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                            />
-                                        </FormControl>
-                                    )}
-                                    <br/>
-                                    <Button onClick={async()=>{
-                                        addAddress()
-                                    }} size='small' color='primary'>
-                                        Добавить адрес
-                                    </Button>
-                                    <br/>
-                                    <br/>
-                                    {email.map((element, idx)=>
-                                        <FormControl  key={`email${idx}`} className={isMobileApp?classes.inputM:classes.inputD}>
-                                            <InputLabel>Email{idx+1}</InputLabel>
-                                            <Input
-                                                value={element}
-                                                onChange={(event)=>{editEmail(event, idx)}}
-                                                inputProps={{
-                                                    'aria-label': 'description',
-                                                }}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={()=>{
-                                                                deleteEmail(idx)
-                                                            }}
-                                                            aria-label='toggle password visibility'
-                                                        >
-                                                            <Remove/>
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                            />
-                                        </FormControl>
-                                    )}
-                                    <br/>
-                                    <Button onClick={async()=>{
-                                        addEmail()
-                                    }} size='small' color='primary'>
-                                        Добавить email
-                                    </Button>
-                                    <br/>
-                                    <br/>
-                                    {phone.map((element, idx)=>
-                                        <FormControl  key={`phone${idx}`} className={isMobileApp?classes.inputM:classes.inputD}>
-                                            <InputLabel>Телефон{idx+1}</InputLabel>
-                                            <Input
-                                                value={element}
-                                                onChange={(event)=>{editPhone(event, idx)}}
-                                                inputProps={{
-                                                    'aria-label': 'description',
-                                                }}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={()=>{
-                                                                deletePhone(idx)
-                                                            }}
-                                                            aria-label='toggle password visibility'
-                                                        >
-                                                            <Remove/>
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                            />
-                                        </FormControl>
-                                    )}
-                                    <br/>
-                                    <Button onClick={async()=>{
-                                        addPhone()
-                                    }} size='small' color='primary'>
-                                        Добавить телефон
-                                    </Button>
-                                    <br/>
-                                    <br/>
-                                    <TextField
-                                        multiline={true}
-                                        label='Информация'
-                                        value={info}
-                                        className={isMobileApp?classes.inputM:classes.inputD}
-                                        onChange={(event)=>{setInfo(event.target.value)}}
-                                        inputProps={{
-                                            'aria-label': 'description',
-                                        }}
-                                    />
-                                    <div className={classes.row}>
+                                        </label>
                                         {
-                                            router.query.id==='new'?
-                                                <Button onClick={async()=>{
-                                                    if (cities.length>0&&image!==undefined&&name.length>0&&email.length>0&&address.length>0&&phone.length>0&&info.length>0) {
-                                                        const action = async() => {
-                                                            await addOrganization({
-                                                                catalog,
-                                                                cities: cities,
-                                                                pass: pass,
-                                                                miniInfo: miniInfo,
-                                                                priotiry: checkInt(priotiry),
-                                                                consignation: consignation,
-                                                                onlyDistrict: onlyDistrict,
-                                                                unite: unite,
-                                                                superagent: superagent,
-                                                                onlyIntegrate: onlyIntegrate,
-                                                                addedClient: addedClient,
-                                                                autoIntegrate,
-                                                                autoAcceptAgent: autoAcceptAgent,
-                                                                autoAcceptNight: autoAcceptNight,
-                                                                dateDelivery,
-                                                                warehouse: warehouse,
-                                                                accessToClient: accessToClient,
-                                                                image: image,
-                                                                name: name,
-                                                                address: address,
-                                                                email: email,
-                                                                phone: phone,
-                                                                info: info,
-                                                                minimumOrder: checkInt(minimumOrder)})
-                                                            Router.push('/organizations')
-                                                        }
-                                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                                        showMiniDialog(true)
-                                                    } else {
-                                                        showSnackBar('Заполните все поля')
-                                                    }
-                                                }} size='small' color='primary'>
-                                                    Добавить
-                                                </Button>
-                                                :
+                                            profile.role==='admin'?
                                                 <>
-                                                <Button onClick={async()=>{
-                                                    let editElement = {_id: data.organization._id}
-                                                    if(image!==undefined)editElement.image = image
-                                                    if(pass!==data.organization.pass)editElement.pass = pass
-                                                    if(name.length>0&&name!==data.organization.name)editElement.name = name
-                                                    if(cities.length>0)editElement.cities = cities
-                                                    if(address.length>0&&address!==data.organization.address)editElement.address = address
-                                                    if(email.length>0&&email!==data.organization.email)editElement.email = email
-                                                    if(phone.length>0&&phone!==data.organization.phone)editElement.phone = phone
-                                                    if(info.length>0&&info!==data.organization.info)editElement.info = info
-                                                    if(miniInfo.length>0&&miniInfo!==data.organization.miniInfo)editElement.miniInfo = miniInfo
-                                                    if(accessToClient!==data.organization.accessToClient)editElement.accessToClient = accessToClient
-                                                    if(onlyDistrict!==data.organization.onlyDistrict)editElement.onlyDistrict = onlyDistrict
-                                                    if(unite!==data.organization.unite)editElement.unite = unite
-                                                    if(superagent!==data.organization.superagent)editElement.superagent = superagent
-                                                    if(onlyIntegrate!==data.organization.onlyIntegrate)editElement.onlyIntegrate = onlyIntegrate
-                                                    if(addedClient!==data.organization.addedClient)editElement.addedClient = addedClient
-                                                    if(autoIntegrate!==data.organization.autoIntegrate)editElement.autoIntegrate = autoIntegrate
-                                                    if(autoAcceptAgent!==data.organization.autoAcceptAgent)editElement.autoAcceptAgent = autoAcceptAgent
-                                                    if(autoAcceptNight!==data.organization.autoAcceptNight)editElement.autoAcceptNight = autoAcceptNight
-                                                    if(dateDelivery!==data.organization.dateDelivery)editElement.dateDelivery = dateDelivery
-                                                    if(warehouse!==data.organization.warehouse)editElement.warehouse = warehouse
-                                                    if(consignation!==data.organization.consignation)editElement.consignation = consignation
-                                                    if(minimumOrder!==data.organization.minimumOrder)editElement.minimumOrder = checkInt(minimumOrder)
-                                                    if(catalog&&catalog!==data.organization.catalog)editElement.catalog = catalog
-                                                    if(priotiry!==data.organization.priotiry)editElement.priotiry = checkInt(priotiry)
-                                                    const action = async() => {
-                                                        await setOrganization(editElement)
-                                                    }
-                                                    setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                                    showMiniDialog(true)
-                                                }} size='small' color='primary'>
-                                                    Сохранить
-                                                </Button>
-                                                {profile.role==='admin'?
-                                                    <>
-                                                    <Button onClick={async()=>{
-                                                        const action = async() => {
-                                                            await onoffOrganization([data.organization._id])
-                                                            setStatusO(statusO==='active'?'deactive':'active')
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={accessToClient}
+                                                                onChange={()=>{setAccessToClient(!accessToClient)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
                                                         }
-                                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                                        showMiniDialog(true)
-                                                    }} size='small'  color={statusO==='active'?'primary':'secondary'}>
-                                                        {statusO==='active'?'Отключить':'Включить'}
-                                                    </Button>
-                                                    <Button onClick={async()=>{
-                                                        const action = async() => {
-                                                            await deleteOrganization([data.organization._id])
-                                                            Router.push('/organizations')
+                                                        label='Доступ к клиентам'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={consignation}
+                                                                onChange={()=>{setConsignation(!consignation)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
                                                         }
-                                                        setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
-                                                        showMiniDialog(true)
-                                                    }} size='small' color='secondary'>
-                                                        Удалить
-                                                    </Button>
-                                                    </>
-                                                    :
-                                                    null
-                                                }
+                                                        label='Консигнации'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={onlyDistrict}
+                                                                onChange={()=>{setOnlyDistrict(!onlyDistrict)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Только в районах'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={unite}
+                                                                onChange={()=>{setUnite(!unite)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Объединять заказы'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={superagent}
+                                                                onChange={()=>{setSuperagent(!superagent)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Суперагент'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={onlyIntegrate}
+                                                                onChange={()=>{setOnlyIntegrate(!onlyIntegrate)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Только по интеграции'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={dateDelivery}
+                                                                onChange={()=>{setDateDelivery(!dateDelivery)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Дата доставки'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={addedClient}
+                                                                onChange={()=>{setAddedClient(!addedClient)}}
+                                                                color='primary'
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Добавлять клиентов'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={autoAcceptAgent}
+                                                                onChange={()=>{setAutoAcceptAgent(!autoAcceptAgent)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Автоприем заказов агентов'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={autoAcceptNight}
+                                                                onChange={()=>{setAutoAcceptNight(!autoAcceptNight)}}
+                                                                color="primary"
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Автоприем заказов ночью'
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Switch
+                                                                checked={autoIntegrate}
+                                                                onChange={()=>{setAutoIntegrate(!autoIntegrate)}}
+                                                                color='primary'
+                                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                            />
+                                                        }
+                                                        label='Автоприем интеграции'
+                                                    />
+                                                    <br/>
+                                                    <div className={classes.geo} style={{color: warehouse&&warehouse.length>0?'#ffb300':'red'}} onClick={()=>{
+                                                        setFullDialog('Геолокация', <Geo change={true} geo={warehouse} setAddressGeo={setWarehouse}/>)
+                                                        showFullDialog(true)
+                                                    }}>
+                                                        Склад
+                                                    </div>
+                                                    <div className={classes.row}>
+                                                        {
+                                                            data.organization.catalog?
+                                                                <Button onClick={async()=> {
+                                                                    window.open(data.organization.catalog, '_blank');
+                                                                }} size='small' color='primary'>
+                                                                    Открыть каталог
+                                                                </Button>
+                                                                :
+                                                                null
+                                                        }
+                                                        <Button onClick={async()=> {
+                                                            catalogInput.current.click()
+                                                        }} size='small' color={catalog?'primary':'secondary'}>
+                                                            Загрузить каталог
+                                                        </Button>
+                                                    </div>
                                                 </>
+                                                :
+                                                null
                                         }
                                     </div>
-                                </div>
+                                    <div>
+                                        <TextField
+                                            label='Имя'
+                                            value={name}
+                                            className={isMobileApp?classes.inputM:classes.inputD}
+                                            onChange={(event)=>{setName(event.target.value)}}
+                                            inputProps={{
+                                                'aria-label': 'description',
+                                            }}
+                                        />
+                                        <FormControl className={isMobileApp?classes.inputM:classes.inputD} variant='outlined'>
+                                            <InputLabel>Город</InputLabel>
+                                            <Select
+                                                multiple
+                                                value={cities}
+                                                onChange={handleCities}
+                                                input={<Input />}
+                                                MenuProps={{
+                                                    PaperProps: {
+                                                        style: {
+                                                            maxHeight: 226,
+                                                            width: 250,
+                                                        },
+                                                    }
+                                                }}
+                                            >
+                                                {_cities.map((city) => (
+                                                    <MenuItem key={city} value={city}>
+                                                        {city}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                        <TextField
+                                            label='Профиль'
+                                            value={miniInfo}
+                                            className={isMobileApp?classes.inputM:classes.inputD}
+                                            onChange={(event)=>{setMiniInfo(event.target.value)}}
+                                            inputProps={{
+                                                'aria-label': 'description',
+                                            }}
+                                        />
+                                        <FormControl className={isMobileApp?classes.inputM:classes.inputD}>
+                                            <InputLabel>Минимальный заказ</InputLabel>
+                                            <Input
+                                                type={ isMobileApp?'number':'text'}
+                                                value={minimumOrder}
+                                                onChange={(event)=>{setMinimumOrder(inputInt(event.target.value))}}
+                                                inputProps={{
+                                                    'aria-label': 'description',
+                                                }}
+                                            />
+                                        </FormControl>
+                                        <FormControl className={isMobileApp?classes.inputM:classes.inputD}>
+                                            <InputLabel>Приоритет</InputLabel>
+                                            <Input
+                                                type={ isMobileApp?'number':'text'}
+                                                value={priotiry}
+                                                onChange={(event)=>{setPriotiry(inputInt(event.target.value))}}
+                                                inputProps={{
+                                                    'aria-label': 'description',
+                                                }}
+                                            />
+                                        </FormControl>
+                                        <TextField
+                                            label='Интеграция'
+                                            value={pass}
+                                            className={isMobileApp?classes.inputM:classes.inputD}
+                                            onChange={(event)=>{setPass(event.target.value)}}
+                                            inputProps={{
+                                                'aria-label': 'description',
+                                            }}
+                                        />
+                                        {address.map((element, idx)=>
+                                            <FormControl  key={`address${idx}`} className={isMobileApp?classes.inputM:classes.inputD}>
+                                                <InputLabel>Адрес{idx+1}</InputLabel>
+                                                <Input
+                                                    placeholder='Адрес'
+                                                    value={element}
+                                                    onChange={(event)=>{editAddress(event, idx)}}
+                                                    inputProps={{
+                                                        'aria-label': 'description',
+                                                    }}
+                                                    endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                onClick={()=>{
+                                                                    deleteAddress(idx)
+                                                                }}
+                                                                aria-label='toggle password visibility'
+                                                            >
+                                                                <Remove/>
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    }
+                                                />
+                                            </FormControl>
+                                        )}
+                                        <br/>
+                                        <Button onClick={async()=>{
+                                            addAddress()
+                                        }} size='small' color='primary'>
+                                            Добавить адрес
+                                        </Button>
+                                        <br/>
+                                        <br/>
+                                        {email.map((element, idx)=>
+                                            <FormControl  key={`email${idx}`} className={isMobileApp?classes.inputM:classes.inputD}>
+                                                <InputLabel>Email{idx+1}</InputLabel>
+                                                <Input
+                                                    value={element}
+                                                    onChange={(event)=>{editEmail(event, idx)}}
+                                                    inputProps={{
+                                                        'aria-label': 'description',
+                                                    }}
+                                                    endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                onClick={()=>{
+                                                                    deleteEmail(idx)
+                                                                }}
+                                                                aria-label='toggle password visibility'
+                                                            >
+                                                                <Remove/>
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    }
+                                                />
+                                            </FormControl>
+                                        )}
+                                        <br/>
+                                        <Button onClick={async()=>{
+                                            addEmail()
+                                        }} size='small' color='primary'>
+                                            Добавить email
+                                        </Button>
+                                        <br/>
+                                        <br/>
+                                        {phone.map((element, idx)=>
+                                            <FormControl  key={`phone${idx}`} className={isMobileApp?classes.inputM:classes.inputD}>
+                                                <InputLabel>Телефон{idx+1}</InputLabel>
+                                                <Input
+                                                    value={element}
+                                                    onChange={(event)=>{editPhone(event, idx)}}
+                                                    inputProps={{
+                                                        'aria-label': 'description',
+                                                    }}
+                                                    endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                onClick={()=>{
+                                                                    deletePhone(idx)
+                                                                }}
+                                                                aria-label='toggle password visibility'
+                                                            >
+                                                                <Remove/>
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    }
+                                                />
+                                            </FormControl>
+                                        )}
+                                        <br/>
+                                        <Button onClick={async()=>{
+                                            addPhone()
+                                        }} size='small' color='primary'>
+                                            Добавить телефон
+                                        </Button>
+                                        <br/>
+                                        <br/>
+                                        <TextField
+                                            multiline={true}
+                                            label='Информация'
+                                            value={info}
+                                            className={isMobileApp?classes.inputM:classes.inputD}
+                                            onChange={(event)=>{setInfo(event.target.value)}}
+                                            inputProps={{
+                                                'aria-label': 'description',
+                                            }}
+                                        />
+                                        <div className={classes.row}>
+                                            {
+                                                router.query.id==='new'?
+                                                    <Button onClick={async()=>{
+                                                        if (cities.length>0&&image!==undefined&&name.length>0&&email.length>0&&address.length>0&&phone.length>0&&info.length>0) {
+                                                            const action = async() => {
+                                                                await addOrganization({
+                                                                    catalog,
+                                                                    cities: cities,
+                                                                    pass: pass,
+                                                                    miniInfo: miniInfo,
+                                                                    priotiry: checkInt(priotiry),
+                                                                    consignation: consignation,
+                                                                    onlyDistrict: onlyDistrict,
+                                                                    unite: unite,
+                                                                    superagent: superagent,
+                                                                    onlyIntegrate: onlyIntegrate,
+                                                                    addedClient: addedClient,
+                                                                    autoIntegrate,
+                                                                    autoAcceptAgent: autoAcceptAgent,
+                                                                    autoAcceptNight: autoAcceptNight,
+                                                                    dateDelivery,
+                                                                    warehouse: warehouse,
+                                                                    accessToClient: accessToClient,
+                                                                    image: image,
+                                                                    name: name,
+                                                                    address: address,
+                                                                    email: email,
+                                                                    phone: phone,
+                                                                    info: info,
+                                                                    minimumOrder: checkInt(minimumOrder)})
+                                                                Router.push('/organizations')
+                                                            }
+                                                            setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                                            showMiniDialog(true)
+                                                        } else {
+                                                            showSnackBar('Заполните все поля')
+                                                        }
+                                                    }} size='small' color='primary'>
+                                                        Добавить
+                                                    </Button>
+                                                    :
+                                                    <>
+                                                        <Button onClick={async()=>{
+                                                            let editElement = {_id: data.organization._id}
+                                                            if(image!==undefined)editElement.image = image
+                                                            if(pass!==data.organization.pass)editElement.pass = pass
+                                                            if(name.length>0&&name!==data.organization.name)editElement.name = name
+                                                            if(cities.length>0)editElement.cities = cities
+                                                            if(address.length>0&&address!==data.organization.address)editElement.address = address
+                                                            if(email.length>0&&email!==data.organization.email)editElement.email = email
+                                                            if(phone.length>0&&phone!==data.organization.phone)editElement.phone = phone
+                                                            if(info.length>0&&info!==data.organization.info)editElement.info = info
+                                                            if(miniInfo.length>0&&miniInfo!==data.organization.miniInfo)editElement.miniInfo = miniInfo
+                                                            if(accessToClient!==data.organization.accessToClient)editElement.accessToClient = accessToClient
+                                                            if(onlyDistrict!==data.organization.onlyDistrict)editElement.onlyDistrict = onlyDistrict
+                                                            if(unite!==data.organization.unite)editElement.unite = unite
+                                                            if(superagent!==data.organization.superagent)editElement.superagent = superagent
+                                                            if(onlyIntegrate!==data.organization.onlyIntegrate)editElement.onlyIntegrate = onlyIntegrate
+                                                            if(addedClient!==data.organization.addedClient)editElement.addedClient = addedClient
+                                                            if(autoIntegrate!==data.organization.autoIntegrate)editElement.autoIntegrate = autoIntegrate
+                                                            if(autoAcceptAgent!==data.organization.autoAcceptAgent)editElement.autoAcceptAgent = autoAcceptAgent
+                                                            if(autoAcceptNight!==data.organization.autoAcceptNight)editElement.autoAcceptNight = autoAcceptNight
+                                                            if(dateDelivery!==data.organization.dateDelivery)editElement.dateDelivery = dateDelivery
+                                                            if(warehouse!==data.organization.warehouse)editElement.warehouse = warehouse
+                                                            if(consignation!==data.organization.consignation)editElement.consignation = consignation
+                                                            if(minimumOrder!==data.organization.minimumOrder)editElement.minimumOrder = checkInt(minimumOrder)
+                                                            if(catalog&&catalog!==data.organization.catalog)editElement.catalog = catalog
+                                                            if(priotiry!==data.organization.priotiry)editElement.priotiry = checkInt(priotiry)
+                                                            const action = async() => {
+                                                                await setOrganization(editElement)
+                                                            }
+                                                            setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                                            showMiniDialog(true)
+                                                        }} size='small' color='primary'>
+                                                            Сохранить
+                                                        </Button>
+                                                        {profile.role==='admin'?
+                                                            <>
+                                                                <Button onClick={async()=>{
+                                                                    const action = async() => {
+                                                                        await onoffOrganization([data.organization._id])
+                                                                        setStatusO(statusO==='active'?'deactive':'active')
+                                                                    }
+                                                                    setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                                                    showMiniDialog(true)
+                                                                }} size='small'  color={statusO==='active'?'primary':'secondary'}>
+                                                                    {statusO==='active'?'Отключить':'Включить'}
+                                                                </Button>
+                                                                <Button onClick={async()=>{
+                                                                    const action = async() => {
+                                                                        await deleteOrganization([data.organization._id])
+                                                                        Router.push('/organizations')
+                                                                    }
+                                                                    setMiniDialog('Вы уверены?', <Confirmation action={action}/>)
+                                                                    showMiniDialog(true)
+                                                                }} size='small' color='secondary'>
+                                                                    Удалить
+                                                                </Button>
+                                                            </>
+                                                            :
+                                                            null
+                                                        }
+                                                    </>
+                                            }
+                                        </div>
+                                    </div>
                                 </>
                                 :
                                 router.query.id==='new'?
                                     'Ничего не найдено'
                                     :
                                     <>
-                                    <img
-                                        className={classes.media}
-                                        src={preview}
-                                        alt={name}
-                                    />
-                                    <div style={{width: isMobileApp?'100%':'calc(100% - 300px)'}}>
-                                        <div className={classes.name}>
-                                            {name}
-                                        </div>
-                                        <br/>
-                                        <div className={classes.row}>
-                                            <div className={classes.nameField}>
-                                                Адрес:&nbsp;
+                                        <img
+                                            className={classes.media}
+                                            src={preview}
+                                            alt={name}
+                                        />
+                                        <div style={{width: isMobileApp?'100%':'calc(100% - 300px)'}}>
+                                            <div className={classes.name}>
+                                                {name}
                                             </div>
-                                            <div className={classes.column}>
-                                                {address.map((element, idx)=>
-                                                    <div key={`address${idx}`} className={classes.value}>
-                                                        {element}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className={classes.row}>
-                                            <div className={classes.nameField}>
-                                                Телефон:&nbsp;
-                                            </div>
-                                            <div className={classes.column}>
-                                                {phone.map((element, idx)=>
-                                                    <a href={`tel:${element}`} key={`phone${idx}`} className={classes.value}>
-                                                        {element}
-                                                    </a>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className={classes.row}>
-                                            <div className={classes.nameField}>
-                                                E-mail:&nbsp;
-                                            </div>
-                                            <div className={classes.column}>
-                                                {email.map((element, idx)=>
-                                                    <a href={`mailto:${element}`} key={`email${idx}`} className={classes.value}>
-                                                        {element}
-                                                    </a>
-                                                )}
-                                            </div>
-                                        </div>
-                                        {
-                                            minimumOrder>0?
-                                                <div className={classes.row}>
-                                                    <div className={classes.nameField}>
-                                                        Минимальный заказ:&nbsp;
-                                                    </div>
-                                                    <div className={classes.value}>
-                                                        {minimumOrder}&nbsp;сом
-                                                    </div>
+                                            <br/>
+                                            <div className={classes.row}>
+                                                <div className={classes.nameField}>
+                                                    Адрес:&nbsp;
                                                 </div>
-                                                :
-                                                null
-                                        }
-                                        <br/>
-                                        <div className={classes.info}>
-                                            {info}
+                                                <div className={classes.column}>
+                                                    {address.map((element, idx)=>
+                                                        <div key={`address${idx}`} className={classes.value}>
+                                                            {element}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className={classes.row}>
+                                                <div className={classes.nameField}>
+                                                    Телефон:&nbsp;
+                                                </div>
+                                                <div className={classes.column}>
+                                                    {phone.map((element, idx)=>
+                                                        <a href={`tel:${element}`} key={`phone${idx}`} className={classes.value}>
+                                                            {element}
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className={classes.row}>
+                                                <div className={classes.nameField}>
+                                                    E-mail:&nbsp;
+                                                </div>
+                                                <div className={classes.column}>
+                                                    {email.map((element, idx)=>
+                                                        <a href={`mailto:${element}`} key={`email${idx}`} className={classes.value}>
+                                                            {element}
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            {
+                                                minimumOrder?
+                                                    <div className={classes.row}>
+                                                        <div className={classes.nameField}>
+                                                            Минимальный заказ:&nbsp;
+                                                        </div>
+                                                        <div className={classes.value}>
+                                                            {minimumOrder}&nbsp;сом
+                                                        </div>
+                                                    </div>
+                                                    :
+                                                    null
+                                            }
+                                            <br/>
+                                            <div className={classes.info}>
+                                                {info}
+                                            </div>
                                         </div>
-                                    </div>
                                     </>
                             :
                             'Ничего не найдено'

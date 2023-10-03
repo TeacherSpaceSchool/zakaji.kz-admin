@@ -26,6 +26,7 @@ import CardCatalogPlaceholder from '../../components/catalog/CardCatalogPlacehol
 import initialApp from '../../src/initialApp'
 import { getOrganization } from '../../src/gql/organization'
 import {getAdss} from '../../src/gql/ads'
+import {getСlientDistrict} from "../../src/gql/district";
 
 const Catalog = React.memo((props) => {
     const classes = pageListStyle();
@@ -46,7 +47,7 @@ const Catalog = React.memo((props) => {
     }
     useEffect(()=>{
         (async()=>{
-            if(sessionStorage.catalog&&sessionStorage.catalog!=='{}'){
+            if(sessionStorage.catalog&&sessionStorage.catalog!=='{}'&&sessionStorage.catalogID===router.query.id){
                 setBasket(JSON.parse(sessionStorage.catalog))
             }
         })()
@@ -148,6 +149,7 @@ const Catalog = React.memo((props) => {
     }
     useEffect(()=>{
         if(!initialRender.current) {
+            sessionStorage.catalogID = router.query.id
             sessionStorage.catalog = JSON.stringify(basket)
             let keys = Object.keys(basket)
             allPrice = 0
@@ -167,106 +169,153 @@ const Catalog = React.memo((props) => {
         <App defaultOpenSearch={router.query.search} checkPagination={checkPagination} sorts={data?data.sortItem:undefined} searchShow={true} pageName={data.organization.name}>
             <Head>
                 <title>{data.organization.name}</title>
-                <meta name='description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
+                <meta name='description' content='' />
                 <meta property='og:title' content={data.organization.name} />
-                <meta property='og:description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
+                <meta property='og:description' content='' />
                 <meta property='og:type' content='website' />
                 <meta property='og:image' content={`${urlMain}/static/512x512.png`} />
                 <meta property="og:url" content={`${urlMain}/catalog`} />
                 <link rel='canonical' href={`${urlMain}/catalog`}/>
             </Head>
             <Card className={classes.page}>
-                <br/>
                 <CardContent className={classes.column} style={isMobileApp?{}:{justifyContent: 'start', alignItems: 'flex-start'}}>
+                    {
+                        data.clientDistrict?
+                            <>
+                                {
+                                    data.clientDistrict.agent&&data.clientDistrict.agent.name&&data.clientDistrict.agent.phone[0]?
+                                        <div className={classes.row}>
+                                            <div className={classes.nameField}>
+                                                Агент:&nbsp;
+                                            </div>
+                                            <a href={`tel:${data.clientDistrict.agent.phone[0]}`} className={classes.valueField}>
+                                                {data.clientDistrict.agent.name}
+                                            </a>
+                                        </div>
+                                        :
+                                        null
+                                }
+                                {
+                                    data.clientDistrict.manager&&data.clientDistrict.manager.name&&data.clientDistrict.manager.phone[0]?
+                                        <div className={classes.row}>
+                                            <div className={classes.nameField}>
+                                                Супервайзер:&nbsp;
+                                            </div>
+                                            <a href={`tel:${data.clientDistrict.manager.phone[0]}`} className={classes.valueField}>
+                                                {data.clientDistrict.manager.name}
+                                            </a>
+                                        </div>
+                                        :
+                                        null
+                                }
+                                {
+                                    data.clientDistrict.ecspeditor&&data.clientDistrict.ecspeditor.name&&data.clientDistrict.ecspeditor.phone[0]?
+                                        <div className={classes.row}>
+                                            <div className={classes.nameField}>
+                                                Экспедитор:&nbsp;
+                                            </div>
+                                            <a href={`tel:${data.clientDistrict.ecspeditor.phone[0]}`} className={classes.valueField}>
+                                                {data.clientDistrict.ecspeditor.name}
+                                            </a>
+                                        </div>
+                                        :
+                                        null
+                                }
+                                <Divider/>
+                                <br/>
+                            </>
+                            :
+                            null
+                    }
                     {
                         list?
                             list.map((row, idx) => {
-                            let price
-                            if(basket[row._id]&&basket[row._id].allPrice)
-                                price = basket[row._id].allPrice
-                            else
-                                price = row.price
-                            if(idx<pagination)
-                                return(
-                                    <LazyLoad scrollContainer={'.App-body'} key={row._id} offset={[186, 0]} debounce={0} once={true}  placeholder={<CardCatalogPlaceholder/>}>
-                                        <div style={{width: '100%'}}>
-                                            <div className={classes.line}>
-                                                <img className={classes.media} style={{border: `solid ${row.hit? 'yellow': row.latest? 'green': 'transparent'} 1px`}} src={row.image} onClick={()=>{
-                                                    setFullDialog(row.name, <Image imgSrc={row.image}/>)
-                                                    showFullDialog(true)
-                                                }}/>
-                                                <div className={classes.column} style={{width: 'calc(100% - 142px)'}}>
-                                                    <div className={classes.value}>{row.name}</div>
-                                                    <b className={classes.value}>
-                                                        {`${price} сом`}
-                                                    </b>
-                                                    <div className={classes.line}>
-                                                        <div className={classes.counter}>
-                                                            <div className={classes.counterbtn} onClick={() => {
-                                                                decrement(idx)
-                                                            }}>–
-                                                            </div>
-                                                            <input readOnly={!row.apiece} type={isMobileApp?'number':'text'} className={classes.counternmbr}
-                                                                   value={basket[row._id]?basket[row._id].count:''} onChange={(event) => {
-                                                                setBasketChange(idx, event.target.value)
-                                                            }}/>
-                                                            <div className={classes.counterbtn} onClick={() => {
-                                                                increment(idx)
-                                                            }}>+
-                                                            </div>
-                                                        </div>
-                                                        {
-                                                            row.organization.consignation?
-                                                                <>
-                                                                &nbsp;&nbsp;&nbsp;
-                                                                <div className={classes.showCons} style={{color: basket[row._id]&&basket[row._id].showConsignment?'#004C3F':'#000'}} onClick={()=>{
-                                                                    showConsignment(idx)
-                                                                }}>
-                                                                    КОНС
+                                let price
+                                if(basket[row._id]&&basket[row._id].allPrice)
+                                    price = basket[row._id].allPrice
+                                else
+                                    price = row.price
+                                if(idx<pagination)
+                                    return(
+                                        <LazyLoad scrollContainer={'.App-body'} key={row._id} offset={[186, 0]} debounce={0} once={true}  placeholder={<CardCatalogPlaceholder/>}>
+                                            <div style={{width: '100%'}}>
+                                                <div className={classes.line}>
+                                                    <img className={classes.media} style={{border: `solid ${row.hit? 'yellow': row.latest? 'green': 'transparent'} 1px`}} src={row.image} onClick={()=>{
+                                                        setFullDialog(row.name, <Image imgSrc={row.image}/>)
+                                                        showFullDialog(true)
+                                                    }}/>
+                                                    <div className={classes.column} style={{width: 'calc(100% - 142px)'}}>
+                                                        <div className={classes.value}>{row.name}</div>
+                                                        <b className={classes.value}>
+                                                            {`${price} сом`}
+                                                        </b>
+                                                        <div className={classes.line}>
+                                                            <div className={classes.counter}>
+                                                                <div className={classes.counterbtn} onClick={() => {
+                                                                    decrement(idx)
+                                                                }}>–
                                                                 </div>
+                                                                <input readOnly={!row.apiece} type={isMobileApp?'number':'text'} className={classes.counternmbr}
+                                                                       value={basket[row._id]?basket[row._id].count:''} onChange={(event) => {
+                                                                    setBasketChange(idx, event.target.value)
+                                                                }}/>
+                                                                <div className={classes.counterbtn} onClick={() => {
+                                                                    increment(idx)
+                                                                }}>+
+                                                                </div>
+                                                            </div>
+                                                            {
+                                                                row.organization.consignation?
+                                                                    <>
+                                                                        &nbsp;&nbsp;&nbsp;
+                                                                        <div className={classes.showCons} style={{color: basket[row._id]&&basket[row._id].showConsignment?'#ffb300':'#000'}} onClick={()=>{
+                                                                            showConsignment(idx)
+                                                                        }}>
+                                                                            КОНС
+                                                                        </div>
+                                                                    </>
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </div>
+                                                        {row.apiece?
+                                                            <div className={classes.addPackaging} style={{color: '#ffb300'}} onClick={()=>{
+                                                                addPackaging(idx)
+                                                            }}>
+                                                                Добавить упаковку
+                                                            </div>
+                                                            :
+                                                            <div className={classes.addPackaging} style={{color: '#ffb300'}}>
+                                                                Упаковок: {basket[row._id]?(basket[row._id].count/row.packaging).toFixed(1):0}
+                                                            </div>
+                                                        }
+                                                        {
+                                                            basket[row._id]&&basket[row._id].showConsignment?
+                                                                <>
+                                                                    <br/>
+                                                                    <div className={classes.row}>
+                                                                        <div className={classes.valuecons}>Консигнация</div>
+                                                                        <div className={classes.counterbtncons} onClick={()=>{decrementConsignment(idx)}}>-</div>
+                                                                        <div className={classes.valuecons}>{basket[row._id]?basket[row._id].consignment:0}&nbsp;шт</div>
+                                                                        <div className={classes.counterbtncons} onClick={()=>{incrementConsignment(idx)}}>+</div>
+                                                                    </div>
+                                                                    <div className={classes.addPackaging} style={{color: '#ffb300'}} onClick={()=>{
+                                                                        addPackagingConsignment(idx)
+                                                                    }}>
+                                                                        Добавить упаковку
+                                                                    </div>
                                                                 </>
                                                                 :
                                                                 null
                                                         }
                                                     </div>
-                                                    {row.apiece?
-                                                        <div className={classes.addPackaging} style={{color: '#004C3F'}} onClick={()=>{
-                                                            addPackaging(idx)
-                                                        }}>
-                                                            Добавить упаковку
-                                                        </div>
-                                                        :
-                                                        <div className={classes.addPackaging} style={{color: '#004C3F'}}>
-                                                            Упаковок: {basket[row._id]?(basket[row._id].count/row.packaging).toFixed(1):0}
-                                                        </div>
-                                                    }
-                                                    {
-                                                        basket[row._id]&&basket[row._id].showConsignment?
-                                                            <>
-                                                            <br/>
-                                                            <div className={classes.row}>
-                                                                <div className={classes.valuecons}>Консигнация</div>
-                                                                <div className={classes.counterbtncons} onClick={()=>{decrementConsignment(idx)}}>-</div>
-                                                                <div className={classes.valuecons}>{basket[row._id]?basket[row._id].consignment:0}&nbsp;шт</div>
-                                                                <div className={classes.counterbtncons} onClick={()=>{incrementConsignment(idx)}}>+</div>
-                                                            </div>
-                                                            <div className={classes.addPackaging} style={{color: '#004C3F'}} onClick={()=>{
-                                                                addPackagingConsignment(idx)
-                                                            }}>
-                                                                Добавить упаковку
-                                                            </div>
-                                                            </>
-                                                            :
-                                                            null
-                                                    }
                                                 </div>
+                                                <br/>
+                                                <Divider/>
+                                                <br/>
                                             </div>
-                                            <br/>
-                                            <Divider/>
-                                            <br/>
-                                        </div>
-                                    </LazyLoad>
-                                )
+                                        </LazyLoad>
+                                    )
                             })
                             :
                             null
@@ -340,6 +389,7 @@ Catalog.getInitialProps = async function(ctx) {
             brands,
             ...(ctx.store.getState().user.profile._id?await getClient({_id: ctx.store.getState().user.profile._id}, ctx.req?await getClientGqlSsr(ctx.req):undefined):{}),
             ...await getOrganization({_id: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined),
+            ...await getСlientDistrict({organization: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined),
             ...await getAdss({search: '', organization: ctx.query.id}, ctx.req?await getClientGqlSsr(ctx.req):undefined),
         }
     };

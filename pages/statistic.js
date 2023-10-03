@@ -16,17 +16,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const list = {
     statisticZakajiKz: [
         {
-            name: 'Статистика агента ZAKAJI.KZ',
+            name: 'Статистика агента AZYK.STORE',
             link: '/statistic/agentZakajiKz',
             role: ['admin']
         },
         {
-            name: 'Статистика агентов ZAKAJI.KZ',
+            name: 'Статистика агентов AZYK.STORE',
             link: '/statistic/agentsZakajiKz',
             role: ['admin']
         },
         {
-            name: 'Статистика заказов ZAKAJI.KZ',
+            name: 'Статистика заказов AZYK.STORE',
             link: '/statistic/orderZakajiKz',
             role: ['admin']
         }
@@ -210,6 +210,11 @@ const list = {
             role: ['admin', 'суперорганизация', 'организация', 'менеджер', 'агент']
         },
         {
+            name: 'Статистика RAM',
+            link: '/statistic/ram',
+            role: ['admin']
+        },
+        {
             name: 'Файловое хранилище',
             link: '/statistic/files',
             role: ['admin']
@@ -267,11 +272,15 @@ const list = {
             role: ['admin']
         },
         {
+            name: 'Несинхронизованные заказы 1С',
+            link: `/statistic/unsyncorder`,
+            role: ['admin']
+        },
+        {
             name: 'Принятая интеграции 1С',
             link: `/statistic/receivedatas`,
             role: ['admin', 'суперорганизация', 'организация', 'менеджер']
         },
-
     ],
     load: [
         {
@@ -357,9 +366,9 @@ const Statistic = React.memo((props) => {
         <App searchShow={true} pageName='Инструменты'>
             <Head>
                 <title>Инструменты</title>
-                <meta name='description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
+                <meta name='description' content='' />
                 <meta property='og:title' content='Инструменты' />
-                <meta property='og:description' content='Азык – это онлайн платформа для заказа товаров оптом, разработанная специально для малого и среднего бизнеса.  Она объединяет производителей и торговые точки напрямую, сокращая расходы и повышая продажи. Азык предоставляет своим пользователям мощные технологии для масштабирования и развития своего бизнеса.' />
+                <meta property='og:description' content='' />
                 <meta property='og:type' content='website' />
                 <meta property='og:image' content={`${urlMain}/static/512x512.png`} />
                 <meta property='og:url' content={`${urlMain}/statistics`} />
@@ -495,7 +504,7 @@ const Statistic = React.memo((props) => {
                                 id='panel1a-header'
                                 style={{background: '#fff'}}
                             >
-                                <h3>Статистика ZAKAJI.KZ</h3>
+                                <h3>Статистика AZYK.STORE</h3>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails className={classes.page} >
                                 {showList.statisticZakajiKz.map((element, idx)=>
