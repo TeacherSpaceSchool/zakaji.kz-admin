@@ -82,7 +82,7 @@ const GeoSelectClient =  React.memo(
                         }
                         <div style={{display: load?'none':'block'}}>
                             <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48}
-                                 defaultState={{ center: [42.8700000, 74.5900000], zoom: 15 }}
+                                 defaultState={{ center: [43.252101, 76.9177063], zoom: 15 }}
                             >
                                 {
                                     show?

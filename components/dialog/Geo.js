@@ -18,7 +18,7 @@ const Geo =  React.memo(
         const { showSnackBar } = props.snackbarActions;
         const { showFullDialog, setMiniDialog, showMiniDialog } = props.mini_dialogActions;
         const { classes, geo, name, idx, setAddressGeo, change } = props;
-        let [newGeo, setNewGeo] = useState(geo?geo:'42.8700000, 74.5900000');
+        let [newGeo, setNewGeo] = useState(geo?geo:'43.252101, 76.9177063');
         let getGeo = () => {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position)=>{

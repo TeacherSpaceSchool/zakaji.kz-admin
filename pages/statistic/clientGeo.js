@@ -133,7 +133,7 @@ const ClientGeoStatistic = React.memo((props) => {
                             }
                             <div style={{display: load?'none':'block'}}>
                                 <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-64} width={isMobileApp?window.innerWidth:window.innerWidth-300}
-                                         state={{ center: [42.8700000, 74.5900000], zoom: 15 }}
+                                         state={{ center: [43.252101, 76.9177063], zoom: 15 }}
                                     >
                                     {
                                         !filter.length?

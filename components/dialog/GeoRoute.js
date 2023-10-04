@@ -67,7 +67,7 @@ const Geo =  React.memo(
                         }
                         {geo&&follow?
                             <div style={{display: load?'none':'block'}}>
-                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['42.8700000', '74.5900000'], zoom: 12 }}
+                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['43.252101', '76.9177063'], zoom: 12 }}
                                      state={{ center: geo, zoom: 18 }}>
                                     <TrafficControl options={{ float: 'right' }} />
                                     {legs.map((leg, idx)=> {
@@ -145,7 +145,7 @@ const Geo =  React.memo(
                             </div>
                             :
                             <div style={{display: load?'none':'block'}}>
-                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['42.8700000', '74.5900000'], zoom: 12 }} >
+                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['43.252101', '76.9177063'], zoom: 12 }} >
                                     <TrafficControl options={{ float: 'right' }} />
                                     {legs.map((leg, idx)=> {
                                         if(!navigation||idx===unacceptedIdx||(unacceptedIdx===-1&&idx===legs.length-1))

@@ -48,7 +48,7 @@ const Geo =  React.memo(
                         }
                         {geo&&follow?
                             <div style={{display: load?'none':'block'}}>
-                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['42.8700000', '74.5900000'], zoom: 12 }}
+                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['43.252101', '76.9177063'], zoom: 12 }}
                                      state={{ center: geo, zoom: 18 }}>
                                     <TrafficControl options={{ float: 'right' }} />
                                     {clients.map((client, idx)=> {
@@ -81,7 +81,7 @@ const Geo =  React.memo(
                             </div>
                             :
                             <div style={{display: load?'none':'block'}}>
-                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['42.8700000', '74.5900000'], zoom: 12 }}>
+                                <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-128} width={window.innerWidth-48} defaultState={{ center: ['43.252101', '76.9177063'], zoom: 12 }}>
                                     <TrafficControl options={{ float: 'right' }} />
                                     {clients.map((client, idx)=> {
                                         if(client.user.status==='active'&&client.address[0]&&client.address[0][1]) return <Placemark

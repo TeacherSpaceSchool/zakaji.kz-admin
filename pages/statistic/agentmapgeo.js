@@ -94,7 +94,7 @@ const AgentMapGeoStatistic = React.memo((props) => {
                             }
                             <div style={{display: load?'none':'block'}}>
                                 <Map onLoad={()=>{setLoad(false)}} height={window.innerHeight-64} width={isMobileApp?window.innerWidth:window.innerWidth-300}
-                                         state={{ center: index?agentMapGeos[index][1].split(', '):[42.8700000, 74.5900000], zoom: index?15:12 }}
+                                         state={{ center: index?agentMapGeos[index][1].split(', '):[43.252101, 76.9177063], zoom: index?15:12 }}
                                     >
                                     {agentMapGeos.map((address, idx)=> {
                                         if(!index||index===idx||(index-1)===idx)
