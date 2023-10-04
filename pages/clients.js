@@ -107,8 +107,7 @@ const Client = React.memo((props) => {
 Client.getInitialProps = async function(ctx) {
     await initialApp(ctx)
     let role = ctx.store.getState().user.profile.role
-    let authenticated = ctx.store.getState().user.authenticated
-    if(authenticated&&!['admin', 'суперорганизация', 'организация', 'менеджер', 'агент', 'суперагент', 'экспедитор'].includes(role))
+    if(!['admin', 'суперорганизация', 'организация', 'менеджер', 'агент', 'суперагент', 'экспедитор'].includes(role))
         if(ctx.res) {
             ctx.res.writeHead(302, {
                 Location: '/contact'
