@@ -93,7 +93,7 @@ const Contact = React.memo((props) => {
             showSnackBar('Файл слишком большой')
         }
     })
-    const { profile } = props.user;
+    const { profile, authenticated } = props.user;
     const { setMiniDialog, showMiniDialog, setFullDialog, showFullDialog } = props.mini_dialogActions;
     return (
         <App filters={data.filterSubCategory} sorts={data.sortSubCategory} pageName='Контакты'>
@@ -109,6 +109,9 @@ const Contact = React.memo((props) => {
             </Head>
             <Card className={classes.page}>
                     <CardContent className={isMobileApp?classes.column:classes.row}>
+                        <div className={classes.value}>
+                           {profile.role} {authenticated}
+                        </div>
                         {
                             profile.role==='admin'?
                                 <>
