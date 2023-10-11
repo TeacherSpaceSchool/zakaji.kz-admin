@@ -109,9 +109,6 @@ const Contact = React.memo((props) => {
             </Head>
             <Card className={classes.page}>
                     <CardContent className={isMobileApp?classes.column:classes.row}>
-                        <div className={classes.value}>
-                           {profile.role} {authenticated}
-                        </div>
                         {
                             profile.role==='admin'?
                                 <>
