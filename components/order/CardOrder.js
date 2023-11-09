@@ -172,7 +172,7 @@ const CardOrder = React.memo((props) => {
                     <div className={classes.row}>
                         <div className={classes.nameField}>Сумма{element.returnedPrice?' (факт./итого)':''}:</div>
                         <div className={classes.value}>
-                            {element.returnedPrice?`${element.allPrice-element.returnedPrice} сом/${element.allPrice} сом`:`${element.allPrice} сом`}
+                            {element.returnedPrice?`${element.allPrice-element.returnedPrice} тенге/${element.allPrice} тенге`:`${element.allPrice} тенге`}
                         </div>
                     </div>
                     {
@@ -180,7 +180,7 @@ const CardOrder = React.memo((props) => {
                             <div className={classes.row}>
                                 <div className={classes.nameField}>Консигнации:&nbsp;</div>
                                 <div className={classes.value} style={{color: element.paymentConsignation?'green':'red'}}>
-                                    {element.consignmentPrice}&nbsp;сом,&nbsp;{element.paymentConsignation?'оплачены':'не оплачены'}
+                                    {element.consignmentPrice}&nbsp;тенге,&nbsp;{element.paymentConsignation?'оплачены':'не оплачены'}
                                 </div>
                             </div>
                             :

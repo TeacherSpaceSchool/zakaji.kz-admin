@@ -140,7 +140,7 @@ const CardReturned = React.memo((props) => {
                     }
                     <div className={classes.row}>
                         <div className={classes.nameField}>Сумма: &nbsp;</div>
-                        <div className={classes.value}>{`${element.allPrice} сом`}</div>
+                        <div className={classes.value}>{`${element.allPrice} тенге`}</div>
                     </div>
                     {
                         authenticated&&profile.role!=='client'?

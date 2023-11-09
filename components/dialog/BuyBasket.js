@@ -168,7 +168,7 @@ const BuyBasket =  React.memo(
                 {
                     !agent&&organization.minimumOrder?
                         <>
-                            <div style={{width: width}} className={classes.itogo}><b>Минимальный заказ:</b>{` ${organization.minimumOrder} сом`}</div>
+                            <div style={{width: width}} className={classes.itogo}><b>Минимальный заказ:</b>{` ${organization.minimumOrder} тенге`}</div>
                         </>
                         :null
                 }
@@ -186,7 +186,7 @@ const BuyBasket =  React.memo(
                         null
                 }
                 {discount?<div style={{width: width}} className={classes.itogo}><b>Скидка: &nbsp;</b>{discount}%</div>:null}
-                <div style={{width: width}} className={classes.itogo}><b>Итого:</b>{` ${allPrice-allPrice/100*discount} сом`}</div>
+                <div style={{width: width}} className={classes.itogo}><b>Итого:</b>{` ${allPrice-allPrice/100*discount} тенге`}</div>
                 <br/>
                 <div>
                     <Button variant='contained' color='primary' onClick={async()=>{
@@ -228,7 +228,7 @@ const BuyBasket =  React.memo(
                                             basket: basket,
                                             address: client.address[0],
                                             name: client.name,
-                                            allPrice: `${allPrice-allPrice/100*discount} сом`
+                                            allPrice: `${allPrice-allPrice/100*discount} тенге`
                                         })
                                         Router.push('/statistic/offlineorder')
                                     }

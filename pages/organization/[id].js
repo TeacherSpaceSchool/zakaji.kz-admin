@@ -651,7 +651,7 @@ const Organization = React.memo((props) => {
                                                             Минимальный заказ:&nbsp;
                                                         </div>
                                                         <div className={classes.value}>
-                                                            {minimumOrder}&nbsp;сом
+                                                            {minimumOrder}&nbsp;тенге
                                                         </div>
                                                     </div>
                                                     :

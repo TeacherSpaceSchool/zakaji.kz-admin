@@ -331,13 +331,13 @@ const Order =  React.memo(
                 }
                 <div className={classes.row}>
                     <div className={classes.nameField}>Сумма{priceAfterReturn!==allPrice?' (факт./итого)':''}:&nbsp;</div>
-                    <div className={classes.value}>{priceAfterReturn!==allPrice?`${priceAfterReturn} сом/${allPrice} сом`:`${allPrice} сом`}</div>
+                    <div className={classes.value}>{priceAfterReturn!==allPrice?`${priceAfterReturn} тенге/${allPrice} тенге`:`${allPrice} тенге`}</div>
                 </div>
                 {
                     consignmentPrice?
                         <div className={classes.row}>
                             <div className={classes.nameField}>Консигнации:&nbsp;</div>
-                            <div className={classes.value} style={{color: element.paymentConsignation?'green':'red'}}>{consignmentPrice}&nbsp;сом,&nbsp;{element.paymentConsignation?'оплачены':'не оплачены'}</div>
+                            <div className={classes.value} style={{color: element.paymentConsignation?'green':'red'}}>{consignmentPrice}&nbsp;тенге,&nbsp;{element.paymentConsignation?'оплачены':'не оплачены'}</div>
                         </div>
                         :
                         null
@@ -431,7 +431,7 @@ const Order =  React.memo(
                                         </div>
                                         <div className={classes.row}>
                                             <div className={classes.nameField}>Общая стоимость:&nbsp;</div>
-                                            <div className={classes.value}>{order.allPrice}&nbsp;сом</div>
+                                            <div className={classes.value}>{order.allPrice}&nbsp;тенге</div>
                                         </div>
                                         {
                                             profile.role!=='client'||element.organization.consignation?
@@ -475,7 +475,7 @@ const Order =  React.memo(
                                                 </div>
                                                 <div className={classes.row}>
                                                     <div className={classes.nameField}>Стоимость консигнации:&nbsp;</div>
-                                                    <div className={classes.value}>{order.consignmentPrice}&nbsp;сом</div>
+                                                    <div className={classes.value}>{order.consignmentPrice}&nbsp;тенге</div>
                                                 </div>
                                                 </>
                                                 :
@@ -505,9 +505,9 @@ const Order =  React.memo(
                                             <div className={classes.value}>
                                                 {
                                                     order.returned?
-                                                        `${checkFloat(order.allPrice/order.count*(order.count-order.returned))} сом/${order.allPrice} сом`
+                                                        `${checkFloat(order.allPrice/order.count*(order.count-order.returned))} тенге/${order.allPrice} тенге`
                                                         :
-                                                        `${order.allPrice} сом`
+                                                        `${order.allPrice} тенге`
                                                 }
                                             </div>
                                         </div>
@@ -553,7 +553,7 @@ const Order =  React.memo(
                                                         </div>
                                                         <div className={classes.row}>
                                                             <div className={classes.nameField}>Стоимость консигнации:&nbsp;</div>
-                                                            <div className={classes.value}>{order.consignmentPrice}&nbsp;сом</div>
+                                                            <div className={classes.value}>{order.consignmentPrice}&nbsp;тенге</div>
                                                         </div>
                                                         </>
                                                         :null
@@ -615,9 +615,9 @@ const Order =  React.memo(
                                             <div className={classes.value}>
                                                 {
                                                     order.returned?
-                                                        `${checkFloat(order.allPrice/order.count*(order.count-order.returned))}/${order.allPrice} сом`
+                                                        `${checkFloat(order.allPrice/order.count*(order.count-order.returned))}/${order.allPrice} тенге`
                                                         :
-                                                        `${order.allPrice} сом`
+                                                        `${order.allPrice} тенге`
                                                 }
                                             </div>
                                         </div>
@@ -630,7 +630,7 @@ const Order =  React.memo(
                                                 </div>
                                                 <div className={classes.row}>
                                                     <div className={classes.nameField}>Стоимость консигнации:&nbsp;</div>
-                                                    <div className={classes.value}>{order.consignmentPrice}&nbsp;сом</div>
+                                                    <div className={classes.value}>{order.consignmentPrice}&nbsp;тенге</div>
                                                 </div>
                                                 </>
                                                 :

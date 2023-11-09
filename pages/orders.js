@@ -117,14 +117,14 @@ const Orders = React.memo((props) => {
                             showStat?
                                 <>
                                 <br/>
-                                {simpleStatistic[1]&&simpleStatistic[1]!=='0'?`Сумма: ${simpleStatistic[1]} сом`:null}
+                                {simpleStatistic[1]&&simpleStatistic[1]!=='0'?`Сумма: ${simpleStatistic[1]} тенге`:null}
                                 {
                                     simpleStatistic[2]&&simpleStatistic[2]!=='0'?
                                         <>
                                         <br/>
-                                        {`Консигнаций: ${simpleStatistic[2]} сом`}
+                                        {`Консигнаций: ${simpleStatistic[2]} тенге`}
                                         <br/>
-                                        {`Оплачено консигнаций: ${simpleStatistic[3]} сом`}
+                                        {`Оплачено консигнаций: ${simpleStatistic[3]} тенге`}
                                         </>
                                         :
                                         null

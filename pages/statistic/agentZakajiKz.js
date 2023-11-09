@@ -120,11 +120,11 @@ const ZakajiKzStatistic = React.memo((props) => {
                         {
                             showStat?
                                 <>
-                                <div className={classes.rowStatic}>{`Выручка: ${statisticOrder.row[0].data[1]} сом`}</div>
+                                <div className={classes.rowStatic}>{`Выручка: ${statisticOrder.row[0].data[1]} тенге`}</div>
                                 <div className={classes.rowStatic}>{`Выполнено: ${statisticOrder.row[0].data[2]} шт`}</div>
-                                <div className={classes.rowStatic}>{`Отказов: ${statisticOrder.row[0].data[3]} сом`}</div>
-                                <div className={classes.rowStatic}>{`Конс: ${statisticOrder.row[0].data[4]} сом`}</div>
-                                <div className={classes.rowStatic}>{`Прибыль: ${statisticOrder.row[0].data[5]} сом`}</div>
+                                <div className={classes.rowStatic}>{`Отказов: ${statisticOrder.row[0].data[3]} тенге`}</div>
+                                <div className={classes.rowStatic}>{`Конс: ${statisticOrder.row[0].data[4]} тенге`}</div>
+                                <div className={classes.rowStatic}>{`Прибыль: ${statisticOrder.row[0].data[5]} тенге`}</div>
                                 </>
                                 :
                                 null

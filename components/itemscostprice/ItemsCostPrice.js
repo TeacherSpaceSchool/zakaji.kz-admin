@@ -32,11 +32,11 @@ const CardCategory = React.memo((props) => {
                     </div>
                     <div className={classes.row}>
                         <div className={classes.nameField}>Цена:&nbsp;</div>
-                        <div className={classes.value}>{element.price} сом</div>
+                        <div className={classes.value}>{element.price} тенге</div>
                     </div>
                     <div className={classes.row}>
                         <div className={classes.nameField}>Себестоимость:&nbsp;</div>
-                        <div className={classes.value}>{list[idx].costPrice} сом</div>
+                        <div className={classes.value}>{list[idx].costPrice} тенге</div>
                     </div>
                     <TextField
                         label='Себестоимость'

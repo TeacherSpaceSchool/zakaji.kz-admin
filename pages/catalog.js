@@ -365,7 +365,7 @@ const Catalog = React.memo((props) => {
                                                 <div className={classes.column} style={{width: 'calc(100% - 142px)'}}>
                                                     <div className={classes.value}>{row.name}</div>
                                                     <b className={classes.value}>
-                                                        {`${price} сом`}
+                                                        {`${price} тенге`}
                                                     </b>
                                                     <div className={classes.line}>
                                                         <div className={classes.counter}>
@@ -436,7 +436,7 @@ const Catalog = React.memo((props) => {
             <div className={isMobileApp?classes.bottomBasketM:classes.bottomBasketD}>
                 <div className={isMobileApp?classes.allPriceM:classes.allPriceD}>
                     <div className={isMobileApp?classes.value:classes.priceAllText}>Общая стоимость</div>
-                    <div className={isMobileApp?classes.nameM:classes.priceAll}>{`${allPrice} сом`}</div>
+                    <div className={isMobileApp?classes.nameM:classes.priceAll}>{`${allPrice} тенге`}</div>
                 </div>
                 <div className={isMobileApp?classes.buyM:classes.buyD} onClick={async ()=>{
                     if(allPrice>0) {

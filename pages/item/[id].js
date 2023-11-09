@@ -530,7 +530,7 @@ const Item = React.memo((props) => {
                                         <br/>
                                         <div className={classes.row}>
                                             <div className={classes.price}>
-                                                {data.item.price}&nbsp;сом
+                                                {data.item.price}&nbsp;тенге
                                             </div>
                                         </div>
                                         <br/>

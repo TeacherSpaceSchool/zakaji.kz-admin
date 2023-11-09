@@ -115,7 +115,7 @@ const ReturnedConfirmed =  React.memo(
                     control={<Checkbox/>}
                     label={'Cчет фактура'}
                 />
-                <div style={{width: width}} className={classes.itogo}><b>Итого:</b>{` ${allPrice} сом`}</div>
+                <div style={{width: width}} className={classes.itogo}><b>Итого:</b>{` ${allPrice} тенге`}</div>
                 <br/>
                 <div>
                     <Button variant='contained' color='primary' onClick={async()=>{

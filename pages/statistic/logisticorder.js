@@ -333,7 +333,7 @@ const LogistiOorder = React.memo((props) => {
                                 {price?<>
                                 <br/>
                                 <br/>
-                                {`Сумма: ${price} сом`}
+                                {`Сумма: ${price} тенге`}
                                 </>:null}
                                 {weight?<>
                                 <br/>

@@ -178,7 +178,7 @@ const Returned =  React.memo(
                 }
                 <div className={classes.row}>
                     <div className={classes.nameField}>Сумма:&nbsp;</div>
-                    <div className={classes.value}>{`${allPrice} сом`}</div>
+                    <div className={classes.value}>{`${allPrice} тенге`}</div>
                 </div>
                 {
                     authenticated&&profile.role!=='client'?
@@ -247,7 +247,7 @@ const Returned =  React.memo(
                                         </div>
                                         <div className={classes.row}>
                                             <div className={classes.nameField}>Общая стоимость:&nbsp;</div>
-                                            <div className={classes.value}>{item.allPrice}&nbsp;сом</div>
+                                            <div className={classes.value}>{item.allPrice}&nbsp;тенге</div>
                                         </div>
                                      </div>
                                 )
@@ -268,7 +268,7 @@ const Returned =  React.memo(
                                             <div className={classes.nameField}>Сумма:&nbsp;</div>
                                             <div className={classes.value}>
                                                 {
-                                                    `${item.allPrice} сом`
+                                                    `${item.allPrice} тенге`
                                                 }
                                             </div>
                                         </div>

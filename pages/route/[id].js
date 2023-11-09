@@ -345,7 +345,7 @@ const Route = React.memo((props) => {
                                                                 Сумма{element.orders.reduce((accumulator, element) => accumulator + element.returnedPrice, 0)?' (факт/итого)':''}:&nbsp;
                                                             </div>
                                                             <div className={classes.value}>
-                                                                {element.orders.reduce((accumulator, element) => accumulator + element.returnedPrice, 0)?`${checkFloat(element.orders.reduce((accumulator, element) => accumulator + element.allPrice-element.returnedPrice, 0)-element.orders.reduce((accumulator, element) => accumulator + element.returnedPrice, 0))} сом/`:''}{checkFloat(element.orders.reduce((accumulator, element) => accumulator + element.allPrice-element.returnedPrice, 0))} сом
+                                                                {element.orders.reduce((accumulator, element) => accumulator + element.returnedPrice, 0)?`${checkFloat(element.orders.reduce((accumulator, element) => accumulator + element.allPrice-element.returnedPrice, 0)-element.orders.reduce((accumulator, element) => accumulator + element.returnedPrice, 0))} тенге/`:''}{checkFloat(element.orders.reduce((accumulator, element) => accumulator + element.allPrice-element.returnedPrice, 0))} тенге
                                                             </div>
                                                         </div>
                                                         <div className={classes.row}>
@@ -588,7 +588,7 @@ const Route = React.memo((props) => {
                                                 <>
                                                 <br/>
                                                 <br/>
-                                                {`Сумма${allReturnedPrice?' (факт./итого)':''}: ${allReturnedPrice?`${allPrice-allReturnedPrice}/${allPrice}`:allPrice} сом`}
+                                                {`Сумма${allReturnedPrice?' (факт./итого)':''}: ${allReturnedPrice?`${allPrice-allReturnedPrice}/${allPrice}`:allPrice} тенге`}
                                                 </>
                                                 :
                                                 null

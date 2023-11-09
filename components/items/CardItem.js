@@ -188,7 +188,7 @@ const CardItem = React.memo((props) => {
                     <Link href={`/${profile.role==='client'?'catalog':'item'}/[id]`} as={`/${profile.role==='client'?'catalog':'item'}/${profile.role==='client'?element.organization._id:element._id}`}>
                         <div className={classes.row}>
                             <div className={classes.price}>
-                                {`${element.price} сом`}
+                                {`${element.price} тенге`}
                             </div>
                         </div>
                     </Link>
